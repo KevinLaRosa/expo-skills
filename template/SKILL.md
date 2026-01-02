@@ -1,6 +1,8 @@
 ---
 name: my-skill-name
 description: A clear, concise description of what this skill does and when to use it (1-2 sentences)
+license: MIT
+compatibility: "Requires: List key dependencies, versions, tools, or platform requirements here"
 ---
 
 # My Skill Name

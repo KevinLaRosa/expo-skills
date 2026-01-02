@@ -1,6 +1,8 @@
 ---
 name: expo-build-debugger
 description: Build, run, and debug Expo apps on simulators and devices using EAS Build with optimized workflows for development, preview, and production
+license: MIT
+compatibility: "Requires: Expo SDK 50+, EAS CLI, Xcode (iOS), Android Studio (Android), iOS/Android simulators"
 ---
 
 # Expo Build & Debugger

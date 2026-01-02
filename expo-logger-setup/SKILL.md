@@ -1,6 +1,8 @@
 ---
 name: expo-logger-setup
 description: Install and configure a structured logging system with categories, emojis, and zero production overhead for Expo/React Native projects
+license: MIT
+compatibility: "Requires: Expo/React Native project, TypeScript recommended"
 ---
 
 # Expo Logger Setup

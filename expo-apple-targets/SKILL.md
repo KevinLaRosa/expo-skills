@@ -1,6 +1,8 @@
 ---
 name: expo-apple-targets
 description: Create iOS widgets, notification extensions, WatchKit apps, and other Apple targets using expo-apple-targets with continuous native generation
+license: MIT
+compatibility: "Requires: Xcode 16+, macOS 15+ (Sequoia), Expo SDK 53+, CocoaPods 1.16.2+, Ruby 3.2.0+"
 ---
 
 # Expo Apple Targets

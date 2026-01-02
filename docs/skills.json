@@ -65,6 +65,12 @@
     "references": []
   },
   {
+    "name": "skill-creator",
+    "folder": "skill-creator",
+    "description": "Create new agent skills following the agentskills.io standard with proper structure, frontmatter, and best practices for Claude Code and OpenAI Codex",
+    "references": []
+  },
+  {
     "name": "uniwind-styling",
     "folder": "uniwind-styling",
     "description": "Style React Native components with Uniwind - the fastest Tailwind CSS bindings with compile-time processing and zero re-renders",

@@ -1,6 +1,8 @@
 ---
 name: expo-changelog-generator
 description: Generate App Store and Play Store release notes automatically from git commit history and prepare releases with EAS Submit
+license: MIT
+compatibility: "Requires: Git, EAS CLI, Node.js 18+, access to git repository history"
 ---
 
 # Expo Changelog Generator

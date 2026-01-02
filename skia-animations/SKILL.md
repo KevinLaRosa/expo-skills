@@ -1,6 +1,8 @@
 ---
 name: skia-animations
 description: Build high-performance charts, gradients, and custom graphics with React Native Skia for 60fps visualizations
+license: MIT
+compatibility: "Requires: @shopify/react-native-skia 1+, Expo SDK 50+, react-native-reanimated (for animations)"
 ---
 
 # Skia Animations

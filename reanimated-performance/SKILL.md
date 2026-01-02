@@ -1,6 +1,8 @@
 ---
 name: reanimated-performance
 description: Create 60fps animations with React Native Reanimated using worklets, SharedValues, and gesture-driven interactions
+license: MIT
+compatibility: "Requires: react-native-reanimated 3+, react-native-gesture-handler 2+, Expo SDK 50+"
 ---
 
 # Reanimated Performance

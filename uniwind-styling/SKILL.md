@@ -1,6 +1,8 @@
 ---
 name: uniwind-styling
 description: Style React Native components with Uniwind - the fastest Tailwind CSS bindings with compile-time processing and zero re-renders
+license: MIT
+compatibility: "Requires: Expo SDK 50+, tailwindcss@next (v4 beta), uniwind package"
 ---
 
 # Uniwind Styling

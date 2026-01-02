@@ -1,6 +1,8 @@
 ---
 name: expo-performance-audit
 description: Audit and optimize Expo/React Native app performance with bundle analysis, Flashlight profiling, and proven optimization patterns
+license: MIT
+compatibility: "Requires: Node.js 18+, Flashlight, source-map-explorer, iOS/Android device for profiling"
 ---
 
 # Expo Performance Audit

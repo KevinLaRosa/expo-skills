@@ -1,6 +1,8 @@
 ---
 name: expo-native-modules
 description: Create Expo modules with Swift/Kotlin to expose native APIs, integrate native SDKs, and bridge platform functionality to React Native
+license: MIT
+compatibility: "Requires: Expo SDK 50+, Xcode (iOS), Android Studio (Android), Swift 5+, Kotlin 1.8+"
 ---
 
 # Expo Native Modules

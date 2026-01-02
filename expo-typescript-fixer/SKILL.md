@@ -1,6 +1,8 @@
 ---
 name: expo-typescript-fixer
 description: Fix TypeScript errors, enable strict mode, detect dead code with knip, and implement runtime validation with Zod
+license: MIT
+compatibility: "Requires: TypeScript 5+, Node.js 18+, knip, zod packages"
 ---
 
 # Expo TypeScript Fixer

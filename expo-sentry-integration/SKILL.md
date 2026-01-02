@@ -1,6 +1,8 @@
 ---
 name: expo-sentry-integration
 description: Monitor production errors and performance with Sentry integration for Expo apps including source maps and release tracking
+license: MIT
+compatibility: "Requires: Expo SDK 50+, Sentry account, @sentry/react-native package, EAS Build for source maps"
 ---
 
 # Expo Sentry Integration
