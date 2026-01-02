@@ -432,8 +432,8 @@ struct TradingWidgetView: View {
 ## Resources
 
 - [expo-apple-targets Skill](../expo-apple-targets/SKILL.md) - Setup widgets infrastructure
+- [SwiftUI Performance Patterns](references/axiom-swiftui-performance.md) - Performance optimization (Axiom)
 - [Apple WidgetKit Documentation](https://developer.apple.com/documentation/widgetkit)
-- [SwiftUI Performance (Axiom)](https://github.com/CharlesWiltgen/Axiom/tree/main/swiftui-performance) - SwiftUI optimization patterns
 - [Widget Design Guidelines](https://developer.apple.com/design/human-interface-guidelines/widgets)
 - [WWDC Widget Videos](https://developer.apple.com/videos/play/wwdc2024/10075/)
 

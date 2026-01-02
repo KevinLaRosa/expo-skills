@@ -459,7 +459,8 @@ Function("parseJSON") { (jsonString: String) throws -> [String: Any] in
 
 - [swift-widgets Skill](../swift-widgets/SKILL.md) - Widget-specific debugging
 - [expo-native-modules Skill](../expo-native-modules/SKILL.md) - Expo Modules API
-- [Xcode Debugging (Axiom)](https://github.com/CharlesWiltgen/Axiom/tree/main/xcode-debugging) - Environment-first diagnostics
+- [Xcode Debugging Guide](references/axiom-xcode-debugging.md) - Environment-first diagnostics (Axiom)
+- [Swift Concurrency Guide](references/axiom-swift-concurrency.md) - Swift 6 async/await patterns (Axiom)
 - [LLDB Documentation](https://lldb.llvm.org/use/tutorial.html)
 - [Instruments User Guide](https://developer.apple.com/documentation/instruments)
 

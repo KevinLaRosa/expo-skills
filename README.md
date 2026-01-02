@@ -97,7 +97,7 @@ cp ~/Developer/skills/expo-logger-setup/templates/* ./src/utils/logger/
 ~/Developer/skills/expo-build-debugger/scripts/build.sh --profile preview
 ```
 
-## Available Skills (21 Total)
+## Available Skills (23 Total)
 
 ### Core Development
 - **expo-logger-setup** - Structured logging system with categories and emojis
@@ -112,6 +112,10 @@ cp ~/Developer/skills/expo-logger-setup/templates/* ./src/utils/logger/
 - **nitro-fetch** - Ultra-fast HTTP requests with HTTP/2, HTTP/3, prefetching (220ms faster TTI)
 - **reanimated-performance** - 60fps animations with worklets and SharedValues
 - **skia-animations** - High-performance Skia-based animations and charts
+
+### Services & Integration
+- **better-auth-expo** - Authentication with OAuth, anonymous auth, 2FA, and magic links
+- **revenuecat-expo** - In-app purchases and subscriptions with remote paywall configuration
 
 ### Production & Monitoring
 - **expo-sentry-integration** - Error tracking and performance monitoring

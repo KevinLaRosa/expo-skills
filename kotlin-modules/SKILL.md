@@ -500,8 +500,9 @@ class FileSystemModule : Module() {
 ## Resources
 
 - [expo-native-modules Skill](../expo-native-modules/SKILL.md) - Expo Modules API general
-- [Kotlin Coroutines Guide](https://kotlinlang.org/docs/coroutines-guide.html)
+- [Kotlin Coroutines on Android](references/kotlin-coroutines-android.md) - Android coroutines guide
 - [Expo Modules API](https://docs.expo.dev/modules/overview/)
+- [Kotlin Coroutines Guide](https://kotlinlang.org/docs/coroutines-guide.html)
 - [Android Developers](https://developer.android.com/kotlin)
 
 ## Tools & Commands

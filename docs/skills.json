@@ -6,6 +6,21 @@
     "references": []
   },
   {
+    "name": "better-auth-expo",
+    "folder": "better-auth-expo",
+    "description": "Implement comprehensive authentication in Expo apps with Better Auth - email/password, OAuth providers, anonymous auth, 2FA, and secure session management",
+    "references": [
+      {
+        "title": "Anonymous Authentication Plugin",
+        "file": "references/anonymous-plugin.md"
+      },
+      {
+        "title": "Better Auth Expo Integration",
+        "file": "references/better-auth-expo.md"
+      }
+    ]
+  },
+  {
     "name": "expo-apple-targets",
     "folder": "expo-apple-targets",
     "description": "Create iOS widgets, notification extensions, WatchKit apps, and other Apple targets using expo-apple-targets with continuous native generation",
@@ -74,7 +89,12 @@
     "name": "kotlin-modules",
     "folder": "kotlin-modules",
     "description": "Build performant Android modules with Kotlin for Expo using Expo Modules API with coroutines, best practices, and production-grade patterns",
-    "references": []
+    "references": [
+      {
+        "title": "Kotlin Coroutines on Android",
+        "file": "references/kotlin-coroutines-android.md"
+      }
+    ]
   },
   {
     "name": "nitro-fetch",
@@ -95,6 +115,17 @@
     "references": []
   },
   {
+    "name": "revenuecat-expo",
+    "folder": "revenuecat-expo",
+    "description": "Implement in-app purchases and subscriptions in Expo apps with RevenueCat - handles StoreKit, Google Play Billing, paywalls, entitlements, and subscription management",
+    "references": [
+      {
+        "title": "RevenueCat Expo Installation",
+        "file": "references/revenuecat-expo.md"
+      }
+    ]
+  },
+  {
     "name": "skia-animations",
     "folder": "skia-animations",
     "description": "Build high-performance charts, gradients, and custom graphics with React Native Skia for 60fps visualizations",
@@ -110,13 +141,27 @@
     "name": "swift-debugging",
     "folder": "swift-debugging",
     "description": "Debug Swift code in Expo projects using Xcode, LLDB, Instruments for performance profiling, and memory leak detection with environment-first diagnostics",
-    "references": []
+    "references": [
+      {
+        "title": "Swift 6 Concurrency Guide",
+        "file": "references/axiom-swift-concurrency.md"
+      },
+      {
+        "title": "Xcode Debugging - Environment-First Diagnostics",
+        "file": "references/axiom-xcode-debugging.md"
+      }
+    ]
   },
   {
     "name": "swift-widgets",
     "folder": "swift-widgets",
     "description": "Build performant iOS widgets with SwiftUI and WidgetKit for Expo apps using expo-apple-targets with production-grade patterns and optimization",
-    "references": []
+    "references": [
+      {
+        "title": "SwiftUI Performance Optimization",
+        "file": "references/axiom-swiftui-performance.md"
+      }
+    ]
   },
   {
     "name": "unistyles-styling",
