@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# Pre-commit git hook to automatically update the skills index
+# Adapted from Dimillian/Skills for Expo skills repository
+#
+set -euo pipefail
+
+# Get repository root (2 levels up from this script)
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+
+echo "🔄 Updating skills index..."
+
+# Run the Python script to build docs/skills.json
+python3 "${repo_root}/scripts/build_docs_index.py"
+
+# Stage the updated skills.json file
+git add "${repo_root}/docs/skills.json"
+
+echo "✅ Skills index updated successfully"

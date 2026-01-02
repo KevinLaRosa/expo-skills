@@ -1,0 +1,67 @@
+[
+  {
+    "name": "expo-build-debugger",
+    "folder": "expo-build-debugger",
+    "description": "Build, run, and debug Expo apps on simulators and devices using EAS Build with optimized workflows for development, preview, and production",
+    "references": []
+  },
+  {
+    "name": "expo-changelog-generator",
+    "folder": "expo-changelog-generator",
+    "description": "Generate App Store and Play Store release notes automatically from git commit history and prepare releases with EAS Submit",
+    "references": []
+  },
+  {
+    "name": "expo-logger-setup",
+    "folder": "expo-logger-setup",
+    "description": "Install and configure a structured logging system with categories, emojis, and zero production overhead for Expo/React Native projects",
+    "references": [
+      {
+        "title": "Structured Logging Guide",
+        "file": "references/logging-guide.md"
+      }
+    ]
+  },
+  {
+    "name": "expo-native-modules",
+    "folder": "expo-native-modules",
+    "description": "Create Expo modules with Swift/Kotlin, build iOS widgets, implement custom notifications, and share data with App Groups",
+    "references": []
+  },
+  {
+    "name": "expo-performance-audit",
+    "folder": "expo-performance-audit",
+    "description": "Audit and optimize Expo/React Native app performance with bundle analysis, Flashlight profiling, and proven optimization patterns",
+    "references": []
+  },
+  {
+    "name": "expo-sentry-integration",
+    "folder": "expo-sentry-integration",
+    "description": "Monitor production errors and performance with Sentry integration for Expo apps including source maps and release tracking",
+    "references": []
+  },
+  {
+    "name": "expo-typescript-fixer",
+    "folder": "expo-typescript-fixer",
+    "description": "Fix TypeScript errors, enable strict mode, detect dead code with knip, and implement runtime validation with Zod",
+    "references": []
+  },
+  {
+    "name": "reanimated-performance",
+    "folder": "reanimated-performance",
+    "description": "Create 60fps animations with React Native Reanimated using worklets, SharedValues, and gesture-driven interactions",
+    "references": []
+  },
+  {
+    "name": "skia-animations",
+    "folder": "skia-animations",
+    "description": "Build high-performance charts, gradients, and custom graphics with React Native Skia for 60fps visualizations",
+    "references": []
+  },
+  {
+    "name": "uniwind-styling",
+    "folder": "uniwind-styling",
+    "description": "Style React Native components with Uniwind - the fastest Tailwind CSS bindings with compile-time processing and zero re-renders",
+    "references": []
+  }
+]
