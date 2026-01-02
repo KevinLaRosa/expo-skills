@@ -57,16 +57,19 @@ ln -s $(pwd)/expo-skills ~/.claude/skills/expo-skills
 
 Open `docs/index.html` in your browser to explore all available skills with their documentation and references.
 
-## Available Skills (13 Total)
+## Available Skills (17 Total)
 
 ### Core Development
 - **expo-logger-setup** - Structured logging system with categories and emojis
 - **unistyles-styling** - StyleSheet superset with themes, variants, breakpoints (no Tailwind)
 - **uniwind-styling** - Tailwind CSS styling with compile-time optimizations
 - **expo-build-debugger** - EAS Build, simulator debugging, and profiling
+- **expo-sqlite** - Local SQLite database with expo-sqlite or ultra-fast nitro-sqlite
 
 ### Performance & Quality
 - **expo-performance-audit** - Bundle analysis, Flashlight profiling, optimization patterns
+- **expo-fast-image** - Fast image loading and caching (solves flickering, poor caching)
+- **nitro-fetch** - Ultra-fast HTTP requests with HTTP/2, HTTP/3, prefetching (220ms faster TTI)
 - **reanimated-performance** - 60fps animations with worklets and SharedValues
 - **skia-animations** - High-performance Skia-based animations and charts
 
@@ -78,6 +81,7 @@ Open `docs/index.html` in your browser to explore all available skills with thei
 ### Advanced
 - **expo-apple-targets** - iOS widgets, notification extensions, WatchKit apps (using expo-apple-targets)
 - **expo-native-modules** - Swift/Kotlin API bridges, native SDK integration (using Expo Modules API)
+- **nitro-modules** - Ultra-fast native modules with Nitro (15-60x faster than Expo Modules)
 
 ### Meta
 - **skill-creator** - Create new skills following agentskills.io standard

@@ -18,6 +18,12 @@
     "references": []
   },
   {
+    "name": "expo-fast-image",
+    "folder": "expo-fast-image",
+    "description": "Load and cache images efficiently with react-native-fast-image - solves flickering, poor caching, and performance issues of React Native Image component",
+    "references": []
+  },
+  {
     "name": "expo-logger-setup",
     "folder": "expo-logger-setup",
     "description": "Install and configure a structured logging system with categories, emojis, and zero production overhead for Expo/React Native projects",
@@ -47,9 +53,27 @@
     "references": []
   },
   {
+    "name": "expo-sqlite",
+    "folder": "expo-sqlite",
+    "description": "Store and query local data with SQLite in React Native using expo-sqlite or ultra-fast nitro-sqlite with migrations, transactions, and ORM support",
+    "references": []
+  },
+  {
     "name": "expo-typescript-fixer",
     "folder": "expo-typescript-fixer",
     "description": "Fix TypeScript errors, enable strict mode, detect dead code with knip, and implement runtime validation with Zod",
+    "references": []
+  },
+  {
+    "name": "nitro-fetch",
+    "folder": "nitro-fetch",
+    "description": "Ultra-fast HTTP requests with react-native-nitro-fetch - drop-in fetch replacement with HTTP/2, HTTP/3, prefetching, and worklet support for 220ms faster TTI",
+    "references": []
+  },
+  {
+    "name": "nitro-modules",
+    "folder": "nitro-modules",
+    "description": "Build ultra-fast native modules and views with Nitro - type-safe C++/Swift/Kotlin bindings that outperform Expo Modules and TurboModules by 15-60x",
     "references": []
   },
   {
