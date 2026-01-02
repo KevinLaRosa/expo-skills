@@ -1,10 +1,10 @@
-# Expo Skills for Claude Code
+# Expo Skills for AI Agents
 
-A curated collection of specialized skills for Expo and React Native development, designed for use with [Claude Code](https://claude.com/claude-code).
+A curated collection of specialized skills for Expo and React Native development, compatible with all AI agents that follow the [agentskills.io](https://agentskills.io/) open standard.
 
 ## Overview
 
-This repository provides production-ready skills that help Claude assist with common Expo/React Native development workflows, including:
+This repository provides production-ready skills that help AI agents assist with common Expo/React Native development workflows, including:
 
 - Building and debugging with EAS
 - Performance optimization and profiling
@@ -12,12 +12,19 @@ This repository provides production-ready skills that help Claude assist with co
 - iOS widgets, notifications, and extensions
 - Release management and changelog generation
 - Animation with Skia and Reanimated
-- Styling with Uniwind/NativeWind
+- Styling with Unistyles or Uniwind (with/without Tailwind)
 - Structured logging systems
 - TypeScript quality improvements
 - Sentry integration and monitoring
+- Creating new skills following agentskills.io standard
 
-**Format Compatibility**: These skills follow the [agentskills.io](https://agentskills.io/specification) standard and work with both Claude Code and OpenAI Codex.
+**Universal Compatibility**: These skills follow the [agentskills.io](https://agentskills.io/specification) open standard and work with:
+- ✅ Claude Code (Anthropic)
+- ✅ OpenAI Codex
+- ✅ Cursor
+- ✅ GitHub Copilot
+- ✅ VS Code + Continue
+- ✅ Any agent supporting agentskills.io format
 
 ## Target Stack
 
@@ -50,10 +57,11 @@ ln -s $(pwd)/expo-skills ~/.claude/skills/expo-skills
 
 Open `docs/index.html` in your browser to explore all available skills with their documentation and references.
 
-## Available Skills
+## Available Skills (13 Total)
 
 ### Core Development
 - **expo-logger-setup** - Structured logging system with categories and emojis
+- **unistyles-styling** - StyleSheet superset with themes, variants, breakpoints (no Tailwind)
 - **uniwind-styling** - Tailwind CSS styling with compile-time optimizations
 - **expo-build-debugger** - EAS Build, simulator debugging, and profiling
 
@@ -70,6 +78,9 @@ Open `docs/index.html` in your browser to explore all available skills with thei
 ### Advanced
 - **expo-apple-targets** - iOS widgets, notification extensions, WatchKit apps (using expo-apple-targets)
 - **expo-native-modules** - Swift/Kotlin API bridges, native SDK integration (using Expo Modules API)
+
+### Meta
+- **skill-creator** - Create new skills following agentskills.io standard
 
 ## Quick Start
 
