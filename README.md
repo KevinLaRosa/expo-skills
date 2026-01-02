@@ -45,9 +45,11 @@ These skills are optimized for modern Expo projects using:
 
 **Option 1: Use existing local repository (Recommended)**
 ```bash
-# Skills are already at /Users/Roger/Developer/skills
+# Navigate to where you cloned this repo
+cd ~/path/to/expo-skills
+
 # Create symlink to Claude Code's skills directory
-ln -s /Users/Roger/Developer/skills ~/.claude/skills/expo-skills
+ln -s $(pwd) ~/.claude/skills/expo-skills
 
 # Verify installation
 ls -la ~/.claude/skills/
@@ -65,9 +67,9 @@ ln -s $(pwd) ~/.claude/skills/expo-skills
 
 **Option 3: Use directly in your Expo project**
 ```bash
-# Copy specific skills to your project
-cp -r /Users/Roger/Developer/skills/expo-logger-setup ./skills/
-cp -r /Users/Roger/Developer/skills/uniwind-styling ./skills/
+# Copy specific skills to your project (from where you cloned the repo)
+cp -r ~/path/to/expo-skills/expo-logger-setup ./skills/
+cp -r ~/path/to/expo-skills/uniwind-styling ./skills/
 
 # Reference in your project documentation
 ```
@@ -75,11 +77,12 @@ cp -r /Users/Roger/Developer/skills/uniwind-styling ./skills/
 ### Browse Skills Web Interface
 
 ```bash
-# Open web interface to explore all skills
-open /Users/Roger/Developer/skills/docs/index.html
+# Open web interface to explore all skills (from repo directory)
+cd ~/path/to/expo-skills
+open docs/index.html
 
-# Or from anywhere
-open ~/Developer/skills/docs/index.html
+# Or if you know the path
+open ~/path/to/expo-skills/docs/index.html
 ```
 
 ### Using Individual Skills
@@ -88,13 +91,13 @@ Each skill contains complete documentation:
 
 ```bash
 # Read skill documentation
-cat /Users/Roger/Developer/skills/expo-logger-setup/SKILL.md
+cat ~/path/to/expo-skills/expo-logger-setup/SKILL.md
 
 # Copy templates to your project
-cp ~/Developer/skills/expo-logger-setup/templates/* ./src/utils/logger/
+cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 
 # Run automation scripts
-~/Developer/skills/expo-build-debugger/scripts/build.sh --profile preview
+~/path/to/expo-skills/expo-build-debugger/scripts/build.sh --profile preview
 ```
 
 ## Available Skills (23 Total)

@@ -4,12 +4,11 @@ Complete guide to installing and using Expo Skills with any AI agent.
 
 ## Quick Start
 
-**Skills are already on your machine!**
+**Clone the repository:**
 
 ```bash
-📂 Location: /Users/Roger/Developer/skills
-🌐 GitHub: https://github.com/KevinLaRosa/expo-skills
-📊 Total: 17 skills
+git clone https://github.com/KevinLaRosa/expo-skills.git
+cd expo-skills
 ```
 
 ## Installation Methods
@@ -19,12 +18,15 @@ Complete guide to installing and using Expo Skills with any AI agent.
 Install skills so Claude can automatically discover and use them:
 
 ```bash
+# From the repo directory
+cd ~/path/to/expo-skills  # Or wherever you cloned it
+
 # Create symlink to Claude Code's skills directory
-ln -s /Users/Roger/Developer/skills ~/.claude/skills/expo-skills
+ln -s $(pwd) ~/.claude/skills/expo-skills
 
 # Verify installation
 ls -la ~/.claude/skills/
-# Should show: expo-skills -> /Users/Roger/Developer/skills
+# Should show: expo-skills -> /your/path/to/expo-skills
 ```
 
 **Test it:**
@@ -41,284 +43,244 @@ claude
 Most AI agents that support agentskills.io will auto-discover skills in standard locations:
 
 ```bash
+# Navigate to repo
+cd ~/path/to/expo-skills
+
 # Option A: Create symlink in standard location
-ln -s /Users/Roger/Developer/skills ~/.agent-skills/expo-skills
+ln -s $(pwd) ~/.agent-skills/expo-skills
 
 # Option B: Set environment variable (if agent supports it)
-export AGENT_SKILLS_PATH="/Users/Roger/Developer/skills"
+export AGENT_SKILLS_PATH="$(pwd)"
 ```
 
 **For Cursor:**
 ```bash
-# Cursor looks in project .cursor/skills/
-cd ~/FreqWatch
-mkdir -p .cursor/skills
-ln -s /Users/Roger/Developer/skills .cursor/skills/expo-skills
+# Cursor may look in .cursor directory
+mkdir -p ~/.cursor/skills
+ln -s $(pwd) ~/.cursor/skills/expo-skills
 ```
 
-### Method 3: Direct Project Usage
+### Method 3: Direct Usage (No Symlink)
 
-Copy specific skills directly into your project:
-
-```bash
-# Navigate to your Expo project
-cd ~/FreqWatch
-
-# Create skills directory
-mkdir -p skills
-
-# Copy skills you need
-cp -r ~/Developer/skills/expo-logger-setup skills/
-cp -r ~/Developer/skills/uniwind-styling skills/
-cp -r ~/Developer/skills/expo-sqlite skills/
-
-# Now skills are documented in your project
-cat skills/expo-logger-setup/SKILL.md
-```
-
-### Method 4: Clone from GitHub
-
-If you're on a different machine:
+Use skills directly without installing to agent directories:
 
 ```bash
 # Clone repository
 git clone https://github.com/KevinLaRosa/expo-skills.git
-
-# Navigate to repo
 cd expo-skills
 
-# Create symlink for Claude Code
-ln -s $(pwd) ~/.claude/skills/expo-skills
+# Open web interface to browse
+open docs/index.html
 
-# Or for other agents
-ln -s $(pwd) ~/.agent-skills/expo-skills
+# Read a skill
+cat expo-logger-setup/SKILL.md
+
+# Copy templates to your project
+cp expo-logger-setup/templates/* /path/to/your/project/src/utils/logger/
 ```
 
-## Browsing Skills
+## Verify Installation
+
+### Check Skill Count
+
+```bash
+# Navigate to repo
+cd ~/path/to/expo-skills
+
+# Count skills
+ls */SKILL.md | wc -l
+# Should show: 23
+```
+
+### List All Skills
+
+```bash
+cd ~/path/to/expo-skills
+ls -d */ | grep -E "^expo-|^nitro-|^skill-|^unistyles|^uniwind|^reanimated|^skia|^swift-|^kotlin-|^apple-|^better-|^revenuecat"
+```
+
+Expected output (23 skills):
+```
+apple-docs-search/
+better-auth-expo/
+expo-apple-targets/
+expo-build-debugger/
+expo-changelog-generator/
+expo-fast-image/
+expo-logger-setup/
+expo-native-modules/
+expo-performance-audit/
+expo-sentry-integration/
+expo-sqlite/
+expo-typescript-fixer/
+kotlin-modules/
+nitro-fetch/
+nitro-modules/
+reanimated-performance/
+revenuecat-expo/
+skia-animations/
+skill-creator/
+swift-debugging/
+swift-widgets/
+unistyles-styling/
+uniwind-styling/
+```
+
+## Browse Skills
 
 ### Web Interface
 
-Open the web interface to explore all skills:
-
 ```bash
-# Open in browser
-open /Users/Roger/Developer/skills/docs/index.html
+cd ~/path/to/expo-skills
+open docs/index.html
 ```
 
-Features:
-- Search skills by name
-- Filter by category
-- View descriptions
-- Dark/light theme
+This opens an interactive web interface to explore all skills.
 
 ### Command Line
 
 ```bash
-# List all skills
-ls /Users/Roger/Developer/skills/*/SKILL.md
+# View a skill
+cd ~/path/to/expo-skills
+cat better-auth-expo/SKILL.md
 
-# Read a specific skill
-cat ~/Developer/skills/expo-logger-setup/SKILL.md
-
-# Search skills by keyword
-grep -r "SQLite" ~/Developer/skills/*/SKILL.md
-
-# Count total skills
-ls -d ~/Developer/skills/*/ | grep -v -E "(docs|scripts|template)" | wc -l
+# Search for specific skills
+ls */SKILL.md | grep auth
 ```
 
-## Using Skills
+## Using Skills in Projects
 
-### With AI Agents
-
-Once installed, AI agents automatically use skills when relevant:
-
-**Example conversation with Claude:**
-```
-You: "Help me setup logging in my Expo app"
-Claude: [Uses expo-logger-setup skill automatically]
-        "I'll help you setup structured logging using the logger
-         from FreqWatch. Let me create the logger files..."
-```
-
-**Manual invocation (if supported):**
-```
-You: "Use the nitro-modules skill to create a fast image processor"
-```
-
-### Manually Following Skills
-
-Even without AI agents, skills are excellent documentation:
+### Copy Templates
 
 ```bash
-# 1. Read the skill
-cat ~/Developer/skills/expo-sqlite/SKILL.md
-
-# 2. Follow the workflow step-by-step
-# (Skills have numbered workflows)
-
-# 3. Copy templates if available
-cp ~/Developer/skills/expo-logger-setup/templates/* ./src/utils/logger/
-
-# 4. Run automation scripts
-~/Developer/skills/expo-build-debugger/scripts/build.sh --profile preview
+# Example: Add logger to your Expo project
+cd /path/to/your/expo/project
+cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 ```
 
-## Verifying Installation
-
-### Check Claude Code Integration
+### Run Scripts
 
 ```bash
-# Check if symlink exists
-ls -la ~/.claude/skills/ | grep expo-skills
-
-# Should output:
-# expo-skills -> /Users/Roger/Developer/skills
+# Example: Run EAS build script
+~/path/to/expo-skills/expo-build-debugger/scripts/build.sh --profile preview
 ```
 
-### Check Skills are Accessible
+### Reference Documentation
 
 ```bash
-# Verify all 17 skills are present
-ls /Users/Roger/Developer/skills/ | grep -E "^expo-|^nitro-|^skill-|^unistyles|^uniwind|^reanimated|^skia"
-
-# Should list:
-# expo-apple-targets
-# expo-build-debugger
-# expo-changelog-generator
-# expo-fast-image
-# expo-logger-setup
-# expo-native-modules
-# expo-performance-audit
-# expo-sentry-integration
-# expo-sqlite
-# expo-typescript-fixer
-# nitro-fetch
-# nitro-modules
-# reanimated-performance
-# skia-animations
-# skill-creator
-# unistyles-styling
-# uniwind-styling
-```
-
-### Test Web Interface
-
-```bash
-# Open web interface
-open ~/Developer/skills/docs/index.html
-
-# Should open browser showing all 17 skills
-# Click on a skill to view details
-```
-
-## Updating Skills
-
-Skills are version-controlled with Git:
-
-```bash
-# Navigate to skills directory
-cd /Users/Roger/Developer/skills
-
-# Check for updates
-git status
-git log
-
-# Pull latest changes (if someone else updated)
-git pull origin main
-
-# View changes
-git diff
-```
-
-## Creating New Skills
-
-Use the `skill-creator` skill to create new skills:
-
-```bash
-# Read the skill-creator documentation
-cat ~/Developer/skills/skill-creator/SKILL.md
-
-# Copy template
-cp -r ~/Developer/skills/template ~/Developer/skills/my-new-skill
-
-# Edit SKILL.md
-vim ~/Developer/skills/my-new-skill/SKILL.md
-
-# Follow agentskills.io format (see skill-creator for details)
-```
-
-## Troubleshooting
-
-### Skills not detected by Claude Code
-
-**Problem**: Claude doesn't reference skills
-
-**Solution**:
-```bash
-# 1. Check symlink exists
-ls -la ~/.claude/skills/ | grep expo-skills
-
-# 2. Recreate symlink if needed
-rm ~/.claude/skills/expo-skills
-ln -s /Users/Roger/Developer/skills ~/.claude/skills/expo-skills
-
-# 3. Restart Claude Code
-```
-
-### Web interface not opening
-
-**Problem**: `open docs/index.html` doesn't work
-
-**Solution**:
-```bash
-# Use full path
-open /Users/Roger/Developer/skills/docs/index.html
-
-# Or navigate in browser manually
-# file:///Users/Roger/Developer/skills/docs/index.html
-```
-
-### Skills out of sync with GitHub
-
-**Problem**: Local changes not on GitHub
-
-**Solution**:
-```bash
-cd /Users/Roger/Developer/skills
-git status                    # Check what changed
-git add .                     # Stage changes
-git commit -m "Update skills" # Commit
-git push origin main          # Push to GitHub
+# Read references
+cat ~/path/to/expo-skills/swift-widgets/references/axiom-swiftui-performance.md
 ```
 
 ## Platform-Specific Notes
 
-### macOS (Current System)
-- ✅ All features supported
-- ✅ Symlinks work natively
-- ✅ `open` command opens files in default apps
+### macOS
+
+```bash
+# Use 'open' to view files
+open ~/path/to/expo-skills/docs/index.html
+```
 
 ### Linux
-- ✅ Symlinks work natively
-- ⚠️ Use `xdg-open` instead of `open`
-- ⚠️ Paths may differ: `~/.local/share/claude/skills/`
 
-### Windows
-- ⚠️ Symlinks require admin privileges or Developer Mode
-- ⚠️ Use Git Bash or WSL for best experience
-- ⚠️ Paths: `%USERPROFILE%\.claude\skills\`
+```bash
+# Use 'xdg-open' instead of 'open'
+xdg-open ~/path/to/expo-skills/docs/index.html
+```
 
-## Additional Resources
+### Windows (WSL)
 
-- **GitHub Repository**: https://github.com/KevinLaRosa/expo-skills
-- **agentskills.io Standard**: https://agentskills.io/
-- **Claude Code Documentation**: https://claude.com/claude-code
-- **OpenAI Codex Documentation**: https://developers.openai.com/codex/skills/
+```bash
+# Navigate to repo in WSL
+cd ~/path/to/expo-skills
+
+# Use explorer.exe to open
+explorer.exe docs/index.html
+```
+
+## Update Skills
+
+Skills are updated via git:
+
+```bash
+cd ~/path/to/expo-skills
+git pull origin main
+```
+
+Symlinks will automatically point to updated skills.
+
+## Uninstall
+
+### Remove Symlinks
+
+```bash
+# Remove Claude Code symlink
+rm ~/.claude/skills/expo-skills
+
+# Remove agent-skills symlink (if created)
+rm ~/.agent-skills/expo-skills
+
+# Remove Cursor symlink (if created)
+rm ~/.cursor/skills/expo-skills
+```
+
+### Remove Repository
+
+```bash
+# Delete the cloned repository
+rm -rf ~/path/to/expo-skills
+```
+
+## Troubleshooting
+
+### "Skills not found" in Claude Code
+
+**Check symlink exists:**
+```bash
+ls -la ~/.claude/skills/
+```
+
+**Should show:**
+```
+expo-skills -> /your/path/to/expo-skills
+```
+
+**If not, recreate:**
+```bash
+cd ~/path/to/expo-skills
+ln -s $(pwd) ~/.claude/skills/expo-skills
+```
+
+### Broken symlink after moving repository
+
+If you moved the repository, update the symlink:
+
+```bash
+# Remove old symlink
+rm ~/.claude/skills/expo-skills
+
+# Create new one from new location
+cd ~/new/path/to/expo-skills
+ln -s $(pwd) ~/.claude/skills/expo-skills
+```
+
+### Skills not loading
+
+1. Verify symlink points to correct location
+2. Ensure repository contains SKILL.md files
+3. Restart AI agent (Claude Code, etc.)
+
+## Next Steps
+
+After installation:
+
+1. **Browse skills**: `open ~/path/to/expo-skills/docs/index.html`
+2. **Start using**: Ask Claude Code about Expo tasks
+3. **Copy templates**: Add templates to your projects
+4. **Read docs**: Explore skill references for deep dives
 
 ## Support
 
-For issues or questions:
-- Check existing skills: `cat ~/Developer/skills/skill-creator/SKILL.md`
-- Review documentation: `open ~/Developer/skills/docs/index.html`
-- Check GitHub issues: https://github.com/KevinLaRosa/expo-skills/issues
+- **Issues**: https://github.com/KevinLaRosa/expo-skills/issues
+- **Docs**: https://agentskills.io/
+- **Skills Format**: https://github.com/anthropics/skills
