@@ -1,5 +1,11 @@
 [
   {
+    "name": "expo-apple-targets",
+    "folder": "expo-apple-targets",
+    "description": "Create iOS widgets, notification extensions, WatchKit apps, and other Apple targets using expo-apple-targets with continuous native generation",
+    "references": []
+  },
+  {
     "name": "expo-build-debugger",
     "folder": "expo-build-debugger",
     "description": "Build, run, and debug Expo apps on simulators and devices using EAS Build with optimized workflows for development, preview, and production",
@@ -25,7 +31,7 @@
   {
     "name": "expo-native-modules",
     "folder": "expo-native-modules",
-    "description": "Create Expo modules with Swift/Kotlin, build iOS widgets, implement custom notifications, and share data with App Groups",
+    "description": "Create Expo modules with Swift/Kotlin to expose native APIs, integrate native SDKs, and bridge platform functionality to React Native",
     "references": []
   },
   {

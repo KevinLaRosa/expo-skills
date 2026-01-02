@@ -1,199 +1,453 @@
 ---
 name: expo-native-modules
-description: Create Expo modules with Swift/Kotlin, build iOS widgets, implement custom notifications, and share data with App Groups
+description: Create Expo modules with Swift/Kotlin to expose native APIs, integrate native SDKs, and bridge platform functionality to React Native
 ---
 
 # Expo Native Modules
 
 ## Overview
 
-Build custom native functionality using Expo Modules API with Swift (iOS) and Kotlin (Android), including widgets, notifications, and App Groups.
+Build custom native modules using Expo Modules API to expose Swift/Kotlin functionality to React Native, integrate native SDKs, and access platform APIs not available in Expo SDK.
 
 ## When to Use This Skill
 
-- Need functionality not available in Expo SDK
-- Building iOS widgets (Home Screen, Lock Screen)
-- Custom notification UI (NotificationContentExtension)
-- Sharing data between app and extensions (App Groups)
-- Accessing native platform APIs
-- Integrating native SDKs
+- Need native functionality not in Expo SDK
+- Integrating native SDKs (payment, analytics, etc.)
+- Accessing platform-specific APIs
+- Creating reusable native modules
+- Bridging Swift/Kotlin code to JavaScript
+- Building complex native features
+
+**Note**: For iOS widgets, notification extensions, WatchKit apps, use `expo-apple-targets` skill instead.
 
 ## Workflow
 
 ### Step 1: Create Expo Module
 
 ```bash
-# Create module
-npx create-expo-module@latest my-module
+# Create standalone module
+npx create-expo-module@latest my-native-module
 
-# Or add to existing project
+# Or in existing project's modules directory
 cd modules
-npx create-expo-module@latest my-widget
+npx create-expo-module@latest camera-utils
 ```
 
-### Step 2: Implement Swift Module
+This scaffolds:
+```
+my-native-module/
+├── android/          # Kotlin implementation
+├── ios/              # Swift implementation
+├── src/              # TypeScript types
+├── expo-module.config.json
+└── package.json
+```
+
+### Step 2: Define Module API
+
+Edit `expo-module.config.json`:
+
+```json
+{
+  "platforms": ["ios", "android"],
+  "ios": {
+    "modules": ["MyNativeModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.mynative.MyNativeModule"]
+  }
+}
+```
+
+### Step 3: Implement Swift Module (iOS)
+
+Edit `ios/MyNativeModule.swift`:
 
 ```swift
-// MyWidgetModule.swift
 import ExpoModulesCore
 
-public class MyWidgetModule: Module {
+public class MyNativeModule: Module {
   public func definition() -> ModuleDefinition {
-    Name("MyWidget")
+    Name("MyNative")
 
-    Function("updateWidget") { (data: [String: Any]) in
-      // Update widget with new data
-      WidgetCenter.shared.reloadAllTimelines()
+    // Synchronous function
+    Function("getBatteryLevel") { () -> Float in
+      UIDevice.current.isBatteryMonitoringEnabled = true
+      return UIDevice.current.batteryLevel
     }
 
-    AsyncFunction("fetchWidgetData") { (promise: Promise) in
-      // Fetch data for widget
-      let data = ["value": 42]
-      promise.resolve(data)
+    // Async function
+    AsyncFunction("requestPermission") { (promise: Promise) in
+      // Request permission asynchronously
+      AVCaptureDevice.requestAccess(for: .video) { granted in
+        promise.resolve(granted)
+      }
     }
+
+    // Function with parameters
+    Function("multiply") { (a: Int, b: Int) -> Int in
+      return a * b
+    }
+
+    // Events
+    Events("onBatteryChange")
+
+    // View manager (if creating native views)
+    View(MyNativeView.self) {
+      Prop("color") { (view: MyNativeView, color: String) in
+        view.backgroundColor = UIColor(hex: color)
+      }
+    }
+  }
+
+  // Send events to JavaScript
+  func sendBatteryEvent() {
+    sendEvent("onBatteryChange", [
+      "level": UIDevice.current.batteryLevel
+    ])
   }
 }
 ```
 
-### Step 3: Build iOS Widget
+### Step 4: Implement Kotlin Module (Android)
 
-```swift
-// Widget/FreqWatchWidget.swift
-import WidgetKit
-import SwiftUI
+Edit `android/src/main/java/expo/modules/mynative/MyNativeModule.kt`:
 
-struct FreqWatchWidget: Widget {
-  let kind: String = "FreqWatchWidget"
+```kotlin
+package expo.modules.mynative
 
-  var body: some WidgetConfiguration {
-    StaticConfiguration(kind: kind, provider: Provider()) { entry in
-      FreqWatchWidgetEntryView(entry: entry)
+import expo.modules.kotlin.modules.Module
+import expo.modules.kotlin.modules.ModuleDefinition
+import android.os.BatteryManager
+import android.content.Context
+
+class MyNativeModule : Module() {
+  override fun definition() = ModuleDefinition {
+    Name("MyNative")
+
+    // Synchronous function
+    Function("getBatteryLevel") {
+      val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+      val batteryLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+      return@Function batteryLevel.toFloat() / 100.0f
     }
-    .configurationDisplayName("Trades")
-    .description("View your latest trades")
-    .supportedFamilies([.systemSmall, .systemMedium])
+
+    // Async function
+    AsyncFunction("requestPermission") { promise: Promise ->
+      // Request permission
+      promise.resolve(true)
+    }
+
+    // Function with parameters
+    Function("multiply") { a: Int, b: Int ->
+      return@Function a * b
+    }
+
+    // Events
+    Events("onBatteryChange")
   }
-}
 
-struct FreqWatchWidgetEntryView: View {
-  var entry: Provider.Entry
-
-  var body: some View {
-    VStack {
-      Text("Profit: +\(entry.profit)%")
-        .font(.largeTitle)
-        .foregroundColor(.green)
-      Text("Last update: \(entry.date)")
-        .font(.caption)
-    }
+  // Send events to JavaScript
+  fun sendBatteryEvent() {
+    sendEvent("onBatteryChange", mapOf(
+      "level" to 0.75
+    ))
   }
 }
 ```
 
-### Step 4: Setup App Groups
+### Step 5: Create TypeScript Types
 
-```swift
-// 1. Enable App Groups in Xcode
-// Target → Signing & Capabilities → + App Groups
-// Add: group.com.yourapp.shared
+Edit `src/MyNativeModule.types.ts`:
 
-// 2. Share data
-let sharedDefaults = UserDefaults(suiteName: "group.com.yourapp.shared")
-sharedDefaults?.set(tradeData, forKey: "latestTrades")
+```typescript
+export type BatteryEvent = {
+  level: number;
+};
 
-// 3. Read in widget
-let sharedDefaults = UserDefaults(suiteName: "group.com.yourapp.shared")
-let trades = sharedDefaults?.object(forKey: "latestTrades")
+export type MyNativeModuleType = {
+  getBatteryLevel(): number;
+  requestPermission(): Promise<boolean>;
+  multiply(a: number, b: number): number;
+};
 ```
 
-### Step 5: Custom Notification UI
+Edit `src/index.ts`:
 
-```swift
-// NotificationContentExtension/NotificationViewController.swift
-import UserNotifications
-import UserNotificationsUI
+```typescript
+import { requireNativeModule, EventEmitter } from 'expo-modules-core';
+import type { MyNativeModuleType, BatteryEvent } from './MyNativeModule.types';
 
-class NotificationViewController: UIViewController, UNNotificationContentExtension {
-  func didReceive(_ notification: UNNotification) {
-    let content = notification.request.content
+const MyNative = requireNativeModule<MyNativeModuleType>('MyNative');
 
-    // Custom UI
-    let tradeData = content.userInfo["trade"] as? [String: Any]
-    // Display rich notification
-  }
+// Event emitter
+const emitter = new EventEmitter(MyNative);
+
+export function getBatteryLevel(): number {
+  return MyNative.getBatteryLevel();
 }
+
+export function requestPermission(): Promise<boolean> {
+  return MyNative.requestPermission();
+}
+
+export function multiply(a: number, b: number): number {
+  return MyNative.multiply(a, b);
+}
+
+export function addBatteryListener(
+  listener: (event: BatteryEvent) => void
+) {
+  return emitter.addListener('onBatteryChange', listener);
+}
+
+export * from './MyNativeModule.types';
 ```
 
 ### Step 6: Use in React Native
 
 ```typescript
-import { requireNativeModule } from 'expo-modules-core';
+import { useEffect } from 'react';
+import {
+  getBatteryLevel,
+  requestPermission,
+  multiply,
+  addBatteryListener
+} from './modules/my-native-module';
 
-const MyWidget = requireNativeModule('MyWidget');
+export default function App() {
+  useEffect(() => {
+    const batteryLevel = getBatteryLevel();
+    console.log('Battery:', batteryLevel);
 
-// Update widget
-await MyWidget.updateWidget({
-  profit: 15.5,
-  trades: 24,
-});
+    const subscription = addBatteryListener((event) => {
+      console.log('Battery changed:', event.level);
+    });
 
-// Fetch data
-const data = await MyWidget.fetchWidgetData();
+    return () => subscription.remove();
+  }, []);
+
+  const handlePermission = async () => {
+    const granted = await requestPermission();
+    console.log('Permission granted:', granted);
+  };
+
+  const result = multiply(6, 7);
+  console.log('6 × 7 =', result);
+
+  return <View>...</View>;
+}
+```
+
+### Step 7: Test and Build
+
+```bash
+# Install module in main app
+npm install ./modules/my-native-module
+
+# Prebuild to generate native projects
+npx expo prebuild --clean
+
+# Run on iOS
+npx expo run:ios
+
+# Run on Android
+npx expo run:android
 ```
 
 ## Guidelines
 
 **Do:**
-- Use Expo Modules API (simpler than bare React Native)
-- Test widgets on physical devices
-- Use App Groups for data sharing
-- Follow platform design guidelines
-- Handle errors gracefully
+- Use Expo Modules API (simpler than bare React Native modules)
+- Provide TypeScript types for better DX
+- Handle errors gracefully with try/catch
+- Test on both iOS and Android
+- Document your module's API
+- Version your modules properly
 
 **Don't:**
 - Don't use deprecated Native Modules API
-- Don't forget to request permissions
-- Don't assume widgets update frequently (battery limits)
-- Don't share sensitive data without encryption
+- Don't forget to handle permissions
+- Don't block the main thread with heavy operations
+- Don't expose platform-specific types directly (abstract them)
+- Don't forget to clean up resources (listeners, timers)
 
 ## Examples
 
-### Widget with Shared Data
+### Integrating Native SDK
 
 ```swift
-// App: Save data
-let encoder = JSONEncoder()
-let data = try encoder.encode(trades)
-let sharedDefaults = UserDefaults(suiteName: "group.com.yourapp.shared")
-sharedDefaults?.set(data, forKey: "trades")
-WidgetCenter.shared.reloadAllTimelines()
+// iOS: Integrate native SDK
+import ExpoModulesCore
+import SomeNativeSDK
 
-// Widget: Read data
-let sharedDefaults = UserDefaults(suiteName: "group.com.yourapp.shared")
-if let data = sharedDefaults?.data(forKey: "trades") {
-  let decoder = JSONDecoder()
-  let trades = try decoder.decode([Trade].self, from: data)
-  // Display trades
+public class SDKModule: Module {
+  public func definition() -> ModuleDefinition {
+    Name("NativeSDK")
+
+    OnCreate {
+      SomeNativeSDK.configure(apiKey: "YOUR_API_KEY")
+    }
+
+    AsyncFunction("trackEvent") { (eventName: String, properties: [String: Any], promise: Promise) in
+      SomeNativeSDK.track(event: eventName, properties: properties)
+      promise.resolve(true)
+    }
+  }
+}
+```
+
+```kotlin
+// Android: Integrate native SDK
+import expo.modules.kotlin.modules.Module
+import expo.modules.kotlin.modules.ModuleDefinition
+import com.somenativesdk.SDK
+
+class SDKModule : Module() {
+  override fun definition() = ModuleDefinition {
+    Name("NativeSDK")
+
+    OnCreate {
+      SDK.configure("YOUR_API_KEY")
+    }
+
+    AsyncFunction("trackEvent") { eventName: String, properties: Map<String, Any>, promise: Promise ->
+      SDK.track(eventName, properties)
+      promise.resolve(true)
+    }
+  }
+}
+```
+
+### Native View Component
+
+```swift
+// iOS: Custom native view
+import ExpoModulesCore
+import UIKit
+
+class CustomView: ExpoView {
+  required init(appContext: AppContext? = nil) {
+    super.init(appContext: appContext)
+    setupView()
+  }
+
+  func setupView() {
+    backgroundColor = .systemBlue
+  }
+
+  func setColor(_ color: String) {
+    backgroundColor = UIColor(hex: color)
+  }
+}
+
+public class CustomViewModule: Module {
+  public func definition() -> ModuleDefinition {
+    Name("CustomView")
+
+    View(CustomView.self) {
+      Prop("color") { (view: CustomView, color: String) in
+        view.setColor(color)
+      }
+    }
+  }
+}
+```
+
+```typescript
+// React Native: Use native view
+import { requireNativeViewManager } from 'expo-modules-core';
+import { View, ViewProps } from 'react-native';
+
+const NativeView = requireNativeViewManager('CustomView');
+
+type CustomViewProps = ViewProps & {
+  color?: string;
+};
+
+export function CustomView({ color, ...props }: CustomViewProps) {
+  return <NativeView color={color} {...props} />;
+}
+```
+
+### Platform-Specific Implementation
+
+```typescript
+// src/index.ts
+import { Platform } from 'react-native';
+import { requireNativeModule } from 'expo-modules-core';
+
+const MyNative = requireNativeModule('MyNative');
+
+export function platformSpecificFeature() {
+  if (Platform.OS === 'ios') {
+    return MyNative.iosSpecificMethod();
+  } else if (Platform.OS === 'android') {
+    return MyNative.androidSpecificMethod();
+  }
+  throw new Error('Platform not supported');
 }
 ```
 
 ## Resources
 
+- [Expo Modules API Docs](https://docs.expo.dev/modules/overview/)
 - [Swift Best Practices](references/swift-best-practices.md)
-- [Widgets Guide](references/widgets-guide.md)
-- [Custom Notifications](references/notifications-custom.md)
-- [Expo Modules API](references/expo-modules-api.md)
+- [Kotlin Best Practices](references/kotlin-best-practices.md)
+- [Module API Reference](https://docs.expo.dev/modules/module-api/)
 
 ## Tools & Commands
 
-- `npx create-expo-module@latest` - Create module
+- `npx create-expo-module@latest` - Create new module
 - `npx expo prebuild` - Generate native projects
-- `npx expo run:ios` - Build and run locally
+- `npx expo run:ios` - Build and run on iOS
+- `npx expo run:android` - Build and run on Android
+
+## Troubleshooting
+
+### Module not found
+
+**Problem**: `requireNativeModule` throws error
+
+**Solution**:
+1. Run `npx expo prebuild --clean`
+2. Check `expo-module.config.json` has correct module names
+3. Verify module is installed: `npm list my-native-module`
+4. Clean build folders:
+   ```bash
+   cd ios && pod install && cd ..
+   cd android && ./gradlew clean && cd ..
+   ```
+
+### Swift/Kotlin compilation errors
+
+**Problem**: Build fails with native code errors
+
+**Solution**:
+- Check Swift/Kotlin syntax
+- Verify imports are correct
+- Check Xcode/Android Studio for detailed errors
+- Ensure minimum deployment targets match
+
+### TypeScript types not working
+
+**Problem**: Autocomplete not showing module methods
+
+**Solution**:
+```bash
+# Rebuild TypeScript
+npm run build
+
+# Clear metro cache
+npx expo start --clear
+```
 
 ---
 
 ## Notes
 
-- Widgets are separate targets in Xcode
-- App Groups required for data sharing
-- Test on physical devices (simulators limited)
+- Expo Modules API is easier than bare React Native's Turbo Modules
+- Supports both Swift (iOS) and Kotlin (Android)
+- Autolinking works automatically in Expo projects
+- Can publish modules to npm for reuse
+- Great for integrating native SDKs not yet in Expo SDK
