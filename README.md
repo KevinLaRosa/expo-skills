@@ -9,12 +9,15 @@ This repository provides production-ready skills that help Claude assist with co
 - Building and debugging with EAS
 - Performance optimization and profiling
 - Native module integration (Swift/Kotlin)
+- iOS widgets, notifications, and extensions
 - Release management and changelog generation
 - Animation with Skia and Reanimated
 - Styling with Uniwind/NativeWind
 - Structured logging systems
 - TypeScript quality improvements
 - Sentry integration and monitoring
+
+**Format Compatibility**: These skills follow the [agentskills.io](https://agentskills.io/specification) standard and work with both Claude Code and OpenAI Codex.
 
 ## Target Stack
 
@@ -65,7 +68,8 @@ Open `docs/index.html` in your browser to explore all available skills with thei
 - **expo-typescript-fixer** - TypeScript quality and strict mode migration
 
 ### Advanced
-- **expo-native-modules** - Swift/Kotlin modules, widgets, custom notifications
+- **expo-apple-targets** - iOS widgets, notification extensions, WatchKit apps (using expo-apple-targets)
+- **expo-native-modules** - Swift/Kotlin API bridges, native SDK integration (using Expo Modules API)
 
 ## Quick Start
 
