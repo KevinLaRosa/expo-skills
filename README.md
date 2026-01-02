@@ -41,23 +41,63 @@ These skills are optimized for modern Expo projects using:
 
 ## Installation
 
-### Using Claude Code
+### For AI Agents (Claude Code, Codex, etc.)
 
+**Option 1: Use existing local repository (Recommended)**
 ```bash
-# Clone this repository
-git clone https://github.com/[your-username]/expo-skills.git
+# Skills are already at /Users/Roger/Developer/skills
+# Create symlink to Claude Code's skills directory
+ln -s /Users/Roger/Developer/skills ~/.claude/skills/expo-skills
 
-# Install in Claude Code's skills directory
-ln -s $(pwd)/expo-skills ~/.claude/skills/expo-skills
-
-# Or copy specific skills to your project
+# Verify installation
+ls -la ~/.claude/skills/
 ```
 
-### Browse Skills
+**Option 2: Clone from GitHub**
+```bash
+# Clone repository
+git clone https://github.com/KevinLaRosa/expo-skills.git
 
-Open `docs/index.html` in your browser to explore all available skills with their documentation and references.
+# Create symlink
+cd expo-skills
+ln -s $(pwd) ~/.claude/skills/expo-skills
+```
 
-## Available Skills (17 Total)
+**Option 3: Use directly in your Expo project**
+```bash
+# Copy specific skills to your project
+cp -r /Users/Roger/Developer/skills/expo-logger-setup ./skills/
+cp -r /Users/Roger/Developer/skills/uniwind-styling ./skills/
+
+# Reference in your project documentation
+```
+
+### Browse Skills Web Interface
+
+```bash
+# Open web interface to explore all skills
+open /Users/Roger/Developer/skills/docs/index.html
+
+# Or from anywhere
+open ~/Developer/skills/docs/index.html
+```
+
+### Using Individual Skills
+
+Each skill contains complete documentation:
+
+```bash
+# Read skill documentation
+cat /Users/Roger/Developer/skills/expo-logger-setup/SKILL.md
+
+# Copy templates to your project
+cp ~/Developer/skills/expo-logger-setup/templates/* ./src/utils/logger/
+
+# Run automation scripts
+~/Developer/skills/expo-build-debugger/scripts/build.sh --profile preview
+```
+
+## Available Skills (21 Total)
 
 ### Core Development
 - **expo-logger-setup** - Structured logging system with categories and emojis
@@ -82,6 +122,12 @@ Open `docs/index.html` in your browser to explore all available skills with thei
 - **expo-apple-targets** - iOS widgets, notification extensions, WatchKit apps (using expo-apple-targets)
 - **expo-native-modules** - Swift/Kotlin API bridges, native SDK integration (using Expo Modules API)
 - **nitro-modules** - Ultra-fast native modules with Nitro (15-60x faster than Expo Modules)
+
+### Native Platform Development
+- **swift-widgets** - Build performant iOS widgets with SwiftUI and WidgetKit
+- **swift-debugging** - Debug Swift code with Xcode, LLDB, and Instruments
+- **kotlin-modules** - Build Android modules with Kotlin and coroutines
+- **apple-docs-search** - Search Apple Developer docs in AI-readable format (sosumi.ai)
 
 ### Meta
 - **skill-creator** - Create new skills following agentskills.io standard
