@@ -114,11 +114,47 @@ We've adapted the architecture, git hooks, and documentation system for the Expo
 
 ## Acknowledgments
 
-- **Structure and tooling**: Adapted from [Dimillian/Skills](https://github.com/Dimillian/Skills)
-- **Official format**: Based on [Anthropic Skills Specification](https://github.com/anthropics/skills)
-- **Logger system**: Inspired by FreqWatch logging architecture
-- **Performance patterns**: Based on React Native Performance and Debugging workshops
-- **Uniwind docs**: Official Uniwind documentation for LLMs
+### Core Infrastructure
+- **Repository structure**: Adapted from [Dimillian/Skills](https://github.com/Dimillian/Skills) by [@Dimillian](https://github.com/Dimillian)
+- **Skills format**: [agentskills.io](https://agentskills.io/) open standard
+- **Official specification**: [Anthropic Skills](https://github.com/anthropics/skills)
+- **Best practices**: [Axiom](https://github.com/CharlesWiltgen/Axiom) by [@CharlesWiltgen](https://github.com/CharlesWiltgen)
+
+### Skill Sources & Documentation
+
+**Styling**:
+- **Uniwind**: [Official Uniwind docs](https://docs.uniwind.dev/llms-full.txt)
+- **Unistyles**: [Official Unistyles docs](https://www.unistyl.es/llms-full.txt)
+
+**Performance**:
+- **React Native Performance Workshop**: Performance patterns and optimization techniques
+- **Flashlight**: Performance profiling tool
+
+**Native Development**:
+- **Expo Apple Targets**: [@EvanBacon](https://github.com/EvanBacon)'s [expo-apple-targets](https://github.com/EvanBacon/expo-apple-targets)
+- **Expo Modules API**: [Official Expo documentation](https://docs.expo.dev/modules/)
+
+**Margelo Libraries** (High-performance implementations):
+- **Nitro Modules**: [react-native-nitro-modules](https://nitro.margelo.com/) by [@margelo](https://github.com/margelo)
+- **Nitro SQLite**: [react-native-nitro-sqlite](https://github.com/margelo/react-native-nitro-sqlite)
+- **Nitro Fetch**: [react-native-nitro-fetch](https://github.com/margelo/react-native-nitro-fetch)
+- **Fast Image**: [react-native-fast-image](https://github.com/margelo/react-native-fast-image)
+
+**Data & State**:
+- **Expo SQLite**: [Official Expo SQLite](https://docs.expo.dev/versions/latest/sdk/sqlite/)
+- **Drizzle ORM**: [Drizzle ORM](https://orm.drizzle.team/)
+
+**Monitoring**:
+- **Sentry**: [@mitsuhiko](https://github.com/mitsuhiko)'s [agent-stuff](https://github.com/mitsuhiko/agent-stuff)
+
+**Logging**:
+- **FreqWatch Logger**: Custom logger architecture from FreqWatch project
+
+### Community & Tools
+- **Claude Code**: [Anthropic Claude Code](https://claude.com/claude-code)
+- **OpenAI Codex**: Skills compatibility
+- **Expo Team**: Comprehensive SDK and tooling
+- **React Native Community**: Open source libraries and patterns
 
 ## Contributing
 
