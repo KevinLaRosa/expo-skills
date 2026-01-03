@@ -34,7 +34,7 @@ These skills are optimized for modern Expo projects using:
 - **State**: Zustand + TanStack Query
 - **Styling**: Uniwind + Tailwind CSS, Unistyles (no Tailwind)
 - **Animations**: Reanimated 4 + Liquid Glass
-- **UI**: Skia (charts, graphics), Victory Native (charts), Zeego (menus)
+- **UI**: Expo UI, Skia (charts, graphics), Victory Native (charts), Zeego (menus)
 - **Native**: Swift modules, widgets, custom notifications
 - **Monitoring**: Sentry
 - **Storage**: MMKV + Secure Store
