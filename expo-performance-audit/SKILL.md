@@ -246,6 +246,35 @@ function UserList({ users }) {
 }
 ```
 
+**Avoiding try/catch in Components:**
+
+```typescript
+// ❌ Won't be compiled - contains try/catch
+function BadComponent({ url }) {
+  useEffect(() => {
+    try {
+      const data = await fetch(url);
+      setData(data);
+    } catch (error) {
+      setError(error);
+    }
+  }, [url]);
+}
+
+// ✅ Compiled - use TanStack Query instead
+import { useQuery } from '@tanstack/react-query';
+
+function GoodComponent({ url }) {
+  const { data, error } = useQuery({
+    queryKey: ['data', url],
+    queryFn: () => fetch(url).then(res => res.json()),
+  });
+
+  if (error) return <Text>Error: {error.message}</Text>;
+  return <View>{/* ... */}</View>;
+}
+```
+
 **Verify React Compiler is working:**
 
 ```bash
@@ -254,6 +283,11 @@ npx expo start --clear
 
 # You should see: [React Compiler] Compiled X components
 ```
+
+**Important Limitations**:
+- ⚠️ React Compiler **cannot compile** components with `try/catch/finally` blocks
+- ⚠️ Move error handling to custom hooks or use Error Boundaries instead
+- ⚠️ Use TanStack Query for data fetching (handles errors automatically)
 
 **Note**: React Compiler doesn't replace FlashList, Reanimated worklets, or image optimizations - it specifically optimizes React re-renders.
 
@@ -326,6 +360,7 @@ import { Image } from 'expo-image';
 **Don't:**
 - Don't optimize prematurely (measure first!)
 - Don't manually add memo/useCallback/useMemo if using React Compiler (it's automatic)
+- Don't use try/catch/finally in components with React Compiler (use TanStack Query or Error Boundaries)
 - Don't use inline functions in render (unless using React Compiler)
 - Don't create new objects/arrays in render (unless using React Compiler)
 - Don't forget to set estimatedItemSize on FlashList
@@ -502,6 +537,7 @@ npx expo --version
 - React Compiler requires Expo SDK 52+ and React Native 0.76+
 - Must install BOTH `babel-plugin-react-compiler` and `react-compiler-runtime`
 - Must clear Metro cache after adding plugin
+- Components with `try/catch/finally` won't be compiled (use TanStack Query or Error Boundaries)
 - Some third-party libraries may not be compatible yet
 
 ---
@@ -509,9 +545,11 @@ npx expo --version
 ## Notes
 
 - **React Compiler** (Expo SDK 52+) automates memoization - use it for new projects
+- **React Compiler cannot compile** components with `try/catch/finally` - use TanStack Query or Error Boundaries instead
 - Profile on actual devices, not simulators/emulators
 - Low-end devices reveal performance issues first
 - Bundle size directly impacts app startup time
 - 60fps = 16.67ms per frame (budget carefully!)
 - React Compiler eliminates need for manual memo/useCallback/useMemo
 - Combine React Compiler with FlashList and Reanimated for best performance
+- For data fetching with error handling, prefer TanStack Query over manual try/catch

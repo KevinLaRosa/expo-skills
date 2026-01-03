@@ -266,6 +266,116 @@ plugins: [
 ],
 ```
 
+## Limitations and Unsupported Patterns
+
+### React Compiler Cannot Compile Code With try/catch/finally
+
+React Compiler **cannot optimize** components that use `try/catch/finally` blocks. If your component has error handling, it won't be compiled.
+
+**❌ Not Compiled** (contains try/catch):
+
+```typescript
+function DataFetcher({ url }) {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    try {
+      // This component WON'T be compiled by React Compiler
+      const response = await fetch(url);
+      const json = await response.json();
+      setData(json);
+    } catch (error) {
+      console.error('Fetch failed:', error);
+    }
+  }, [url]);
+
+  return <View>{/* ... */}</View>;
+}
+```
+
+**✅ Workaround**: Move try/catch outside component or use Error Boundaries:
+
+```typescript
+// Option 1: Move async logic to a custom hook (can still use try/catch there)
+function useDataFetch(url) {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        setData(json);
+      } catch (error) {
+        console.error('Fetch failed:', error);
+      }
+    })();
+  }, [url]);
+
+  return data;
+}
+
+// This component CAN be compiled (no try/catch inside)
+function DataFetcher({ url }) {
+  const data = useDataFetch(url);
+  return <View>{/* ... */}</View>;
+}
+
+// Option 2: Use TanStack Query (handles errors automatically, no try/catch needed)
+import { useQuery } from '@tanstack/react-query';
+
+function DataFetcher({ url }) {
+  const { data, error } = useQuery({
+    queryKey: ['data', url],
+    queryFn: () => fetch(url).then(res => res.json()),
+  });
+
+  if (error) return <Text>Error: {error.message}</Text>;
+  return <View>{/* ... */}</View>;
+}
+
+// Option 3: Use Error Boundaries for component-level errors
+import { ErrorBoundary } from 'react-error-boundary';
+
+function App() {
+  return (
+    <ErrorBoundary fallback={<Text>Something went wrong</Text>}>
+      <DataFetcher url="https://api.example.com/data" />
+    </ErrorBoundary>
+  );
+}
+```
+
+### Other Unsupported Patterns
+
+**❌ Generators**:
+```typescript
+// Not compiled - uses generator functions
+function* generateItems() {
+  yield 1;
+  yield 2;
+}
+```
+
+**❌ for...in loops** (sometimes):
+```typescript
+// May not compile - for...in can be problematic
+for (const key in object) {
+  // ...
+}
+
+// ✅ Use Object.keys() instead
+Object.keys(object).forEach(key => {
+  // ...
+});
+```
+
+**❌ eval() or Function() constructor**:
+```typescript
+// Not compiled - dynamic code execution
+eval('console.log("hello")');
+```
+
 ## What React Compiler Does NOT Do
 
 React Compiler **only** optimizes React re-renders. It does **not** replace:
