@@ -102,14 +102,28 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 ~/path/to/expo-skills/expo-build-debugger/scripts/build.sh --profile preview
 ```
 
-## Available Skills (23 Total)
+## Available Skills (30 Total)
 
 ### Core Development
 - **expo-logger-setup** - Structured logging system with categories and emojis
-- **unistyles-styling** - StyleSheet superset with themes, variants, breakpoints (no Tailwind)
-- **uniwind-styling** - Tailwind CSS styling with compile-time optimizations
 - **expo-build-debugger** - EAS Build, simulator debugging, and profiling
+- **expo-typescript-fixer** - TypeScript quality and strict mode migration
+
+### Styling
+- **uniwind-styling** - Tailwind CSS styling with compile-time optimizations
+- **unistyles-styling** - StyleSheet superset with themes, variants, breakpoints (no Tailwind)
+
+### State & Data
+- **zustand-state** - Lightweight state management with simple stores and React hooks
+- **tanstack-query** - Server state management with data fetching, caching, and mutations
 - **expo-sqlite** - Local SQLite database with expo-sqlite or ultra-fast nitro-sqlite
+- **mmkv-storage** - Ultra-fast key-value storage, 30x faster than AsyncStorage
+- **expo-secure-store** - Encrypted storage with Keychain (iOS) and EncryptedSharedPreferences (Android)
+
+### UI Components
+- **expo-ui-components** - Native SwiftUI and Jetpack Compose components for React Native
+- **zeego-menus** - Native dropdown and context menus for iOS, Android, and Web
+- **victory-native-charts** - High-performance charts powered by Skia and Reanimated
 
 ### Performance & Quality
 - **expo-performance-audit** - Bundle analysis, Flashlight profiling, optimization patterns
@@ -125,7 +139,6 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 ### Production & Monitoring
 - **expo-sentry-integration** - Error tracking and performance monitoring
 - **expo-changelog-generator** - Automated release notes from git history
-- **expo-typescript-fixer** - TypeScript quality and strict mode migration
 
 ### Advanced
 - **expo-apple-targets** - iOS widgets, notification extensions, WatchKit apps (using expo-apple-targets)

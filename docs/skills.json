@@ -68,6 +68,12 @@
     "references": []
   },
   {
+    "name": "expo-secure-store",
+    "folder": "expo-secure-store",
+    "description": "Secure storage with Expo Secure Store - encrypted key-value storage using Keychain (iOS) and EncryptedSharedPreferences (Android)",
+    "references": []
+  },
+  {
     "name": "expo-sentry-integration",
     "folder": "expo-sentry-integration",
     "description": "Monitor production errors and performance with Sentry integration for Expo apps including source maps and release tracking",
@@ -86,6 +92,12 @@
     "references": []
   },
   {
+    "name": "expo-ui-components",
+    "folder": "expo-ui-components",
+    "description": "Native UI components with Expo UI - SwiftUI and Jetpack Compose primitives exposed to JavaScript for fully native interfaces",
+    "references": []
+  },
+  {
     "name": "kotlin-modules",
     "folder": "kotlin-modules",
     "description": "Build performant Android modules with Kotlin for Expo using Expo Modules API with coroutines, best practices, and production-grade patterns",
@@ -95,6 +107,12 @@
         "file": "references/kotlin-coroutines-android.md"
       }
     ]
+  },
+  {
+    "name": "mmkv-storage",
+    "folder": "mmkv-storage",
+    "description": "Ultra-fast key-value storage with react-native-mmkv - 30x faster than AsyncStorage with encryption support",
+    "references": []
   },
   {
     "name": "nitro-fetch",
@@ -164,6 +182,12 @@
     ]
   },
   {
+    "name": "tanstack-query",
+    "folder": "tanstack-query",
+    "description": "Server state management with TanStack Query - data fetching, caching, mutations, and real-time updates for React Native/Expo",
+    "references": []
+  },
+  {
     "name": "unistyles-styling",
     "folder": "unistyles-styling",
     "description": "Style React Native apps with Unistyles - a high-performance StyleSheet superset with themes, variants, breakpoints, and zero re-renders without Tailwind",
@@ -173,6 +197,24 @@
     "name": "uniwind-styling",
     "folder": "uniwind-styling",
     "description": "Style React Native components with Uniwind - the fastest Tailwind CSS bindings with compile-time processing and zero re-renders",
+    "references": []
+  },
+  {
+    "name": "victory-native-charts",
+    "folder": "victory-native-charts",
+    "description": "High-performance charts with Victory Native XL - powered by Skia and Reanimated for smooth 60fps visualizations",
+    "references": []
+  },
+  {
+    "name": "zeego-menus",
+    "folder": "zeego-menus",
+    "description": "Native menus with Zeego - beautiful dropdown and context menus for iOS, Android, and Web with a unified API",
+    "references": []
+  },
+  {
+    "name": "zustand-state",
+    "folder": "zustand-state",
+    "description": "Lightweight state management with Zustand - simple stores, React hooks, middleware, and TypeScript support",
     "references": []
   }
 ]
