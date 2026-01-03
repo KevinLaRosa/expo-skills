@@ -26,18 +26,25 @@ This repository provides production-ready skills that help AI agents assist with
 - ✅ VS Code + Continue
 - ✅ Any agent supporting agentskills.io format
 
-## Target Stack
+## Technologies Covered
 
-These skills are optimized for modern Expo projects using:
+These skills support modern Expo/React Native development including:
 
-- **Runtime**: Expo SDK 54+ with Expo Router
-- **State**: Zustand + TanStack Query
-- **Styling**: Uniwind (NativeWind v4) + Tailwind CSS
-- **Animations**: Reanimated 4 + Skia + Liquid Glass
-- **Native**: Swift modules, widgets, custom notifications
-- **Monitoring**: Sentry
-- **Storage**: MMKV + Secure Store
-- **UI**: Victory Native (charts), Zeego (menus)
+- **Runtime**: Expo SDK 50+ (Expo Router, API Routes, custom dev clients)
+- **Styling**: Uniwind (Tailwind CSS), Unistyles (no Tailwind), StyleSheet
+- **Animations**: Reanimated 3/4, Skia for graphics and charts
+- **Performance**: Bundle optimization, Flashlight profiling, 60fps patterns
+- **Native Modules**: Expo Modules API (Swift/Kotlin), Nitro Modules (high-performance)
+- **iOS Native**: WidgetKit, SwiftUI, Xcode debugging, expo-apple-targets
+- **Android Native**: Kotlin coroutines, Android Studio debugging
+- **Authentication**: Better Auth (OAuth, anonymous, 2FA, magic links)
+- **Monetization**: RevenueCat (in-app purchases, subscriptions)
+- **Monitoring**: Sentry error tracking and performance monitoring
+- **Data**: SQLite (expo-sqlite, nitro-sqlite), Drizzle ORM
+- **Networking**: nitro-fetch (HTTP/2, HTTP/3, prefetching)
+- **Images**: react-native-fast-image (efficient loading and caching)
+- **Build & Deploy**: EAS Build, EAS Update, simulator debugging
+- **TypeScript**: Strict mode migration, type safety, Zod validation
 
 ## Installation
 
