@@ -37,7 +37,7 @@ These skills are optimized for modern Expo projects using:
 - **UI**: Expo UI, Skia (charts, graphics), Victory Native (charts), Zeego (menus)
 - **Native**: Swift modules, widgets, custom notifications
 - **Monitoring**: Sentry
-- **Storage**: MMKV + Secure Store
+- **Storage**: Expo Secure Store, MMKV, SQLite
 - **Authentication**: Better Auth (OAuth, anonymous, 2FA)
 - **Monetization**: RevenueCat (IAP, subscriptions)
 
