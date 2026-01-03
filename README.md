@@ -33,7 +33,7 @@ These skills are optimized for modern Expo projects using:
 - **Runtime**: Expo SDK 54+ with Expo Router
 - **State**: Zustand + TanStack Query
 - **Styling**: Uniwind + Tailwind CSS, Unistyles (no Tailwind)
-- **Animations**: Reanimated 4 + Liquid Glass
+- **Animations**: Reanimated 4
 - **UI**: Expo UI, Skia (charts, graphics), Victory Native (charts), Zeego (menus)
 - **Native**: Swift modules, widgets, custom notifications
 - **Monitoring**: Sentry
