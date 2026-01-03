@@ -1,15 +1,15 @@
 ---
 name: expo-performance-audit
-description: Audit and optimize Expo/React Native app performance with bundle analysis, Flashlight profiling, and proven optimization patterns
+description: Audit and optimize Expo/React Native app performance with React Compiler, bundle analysis, Flashlight profiling, and proven optimization patterns
 license: MIT
-compatibility: "Requires: Node.js 18+, Flashlight, source-map-explorer, iOS/Android device for profiling"
+compatibility: "Requires: Node.js 18+, Expo SDK 52+ (for React Compiler), Flashlight, source-map-explorer, iOS/Android device for profiling"
 ---
 
 # Expo Performance Audit
 
 ## Overview
 
-Systematically analyze and optimize your Expo app's performance using bundle analysis, Flashlight profiling, memory leak detection, and React Native performance best practices.
+Systematically analyze and optimize your Expo app's performance using React Compiler (automatic memoization), bundle analysis, Flashlight profiling, memory leak detection, and React Native performance best practices.
 
 ## When to Use This Skill
 
@@ -152,7 +152,112 @@ function UserList({ users }) {
 }
 ```
 
-### Step 6: Optimize Images
+### Step 6: Enable React Compiler (Auto-Optimization)
+
+React Compiler (formerly React Forget) automatically optimizes your components, eliminating the need for manual `React.memo`, `useMemo`, and `useCallback`.
+
+**Requirements**: React Native 0.76+, Expo SDK 52+
+
+```bash
+# Install React Compiler
+npm install -D babel-plugin-react-compiler
+
+# For Expo SDK 52+
+npx expo install babel-plugin-react-compiler
+```
+
+**Configure babel.config.js:**
+
+```javascript
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: ['babel-preset-expo'],
+    plugins: [
+      ['babel-plugin-react-compiler', {
+        runtimeModule: 'react-compiler-runtime'
+      }]
+    ],
+  };
+};
+```
+
+**Install runtime:**
+
+```bash
+npm install react-compiler-runtime
+```
+
+**What React Compiler Does:**
+- ✅ Automatically memoizes components (no more `React.memo`)
+- ✅ Auto-memoizes callbacks (no more `useCallback`)
+- ✅ Auto-memoizes calculations (no more `useMemo`)
+- ✅ Analyzes dependency arrays automatically
+- ✅ Only re-renders when actual data changes
+
+**Before React Compiler:**
+
+```typescript
+import { memo, useCallback, useMemo } from 'react';
+
+const UserCard = memo(({ user, onPress }) => {
+  return (
+    <Pressable onPress={() => onPress(user.id)}>
+      <Text>{user.name}</Text>
+    </Pressable>
+  );
+});
+
+function UserList({ users }) {
+  const handlePress = useCallback((userId) => {
+    console.log('User pressed:', userId);
+  }, []);
+
+  const sortedUsers = useMemo(() => {
+    return users.sort((a, b) => a.name.localeCompare(b.name));
+  }, [users]);
+
+  return <FlashList data={sortedUsers} />;
+}
+```
+
+**After React Compiler (Automatic!):**
+
+```typescript
+// No memo, useCallback, or useMemo needed!
+function UserCard({ user, onPress }) {
+  return (
+    <Pressable onPress={() => onPress(user.id)}>
+      <Text>{user.name}</Text>
+    </Pressable>
+  );
+}
+
+function UserList({ users }) {
+  // Automatically memoized by compiler
+  const handlePress = (userId) => {
+    console.log('User pressed:', userId);
+  };
+
+  // Automatically memoized by compiler
+  const sortedUsers = users.sort((a, b) => a.name.localeCompare(b.name));
+
+  return <FlashList data={sortedUsers} />;
+}
+```
+
+**Verify React Compiler is working:**
+
+```bash
+# Check Metro bundler logs for compilation info
+npx expo start --clear
+
+# You should see: [React Compiler] Compiled X components
+```
+
+**Note**: React Compiler doesn't replace FlashList, Reanimated worklets, or image optimizations - it specifically optimizes React re-renders.
+
+### Step 7: Optimize Images
 
 ```typescript
 // Install expo-image
@@ -185,7 +290,7 @@ import { Image } from 'expo-image';
 />
 ```
 
-### Step 7: Detect Memory Leaks
+### Step 8: Detect Memory Leaks
 
 ```bash
 # iOS: Use Xcode Instruments
@@ -208,10 +313,11 @@ import { Image } from 'expo-image';
 ## Guidelines
 
 **Do:**
+- Use React Compiler (Expo SDK 52+) for automatic memoization
 - Use FlashList instead of FlatList for lists >20 items
-- Memoize expensive components with React.memo
-- Use useCallback for functions passed to child components
-- Use useMemo for expensive calculations
+- Memoize expensive components with React.memo (if not using React Compiler)
+- Use useCallback for functions passed to child components (if not using React Compiler)
+- Use useMemo for expensive calculations (if not using React Compiler)
 - Optimize images (WebP, blurhash, caching)
 - Remove console.log in production
 - Use Reanimated worklets for animations
@@ -219,12 +325,13 @@ import { Image } from 'expo-image';
 
 **Don't:**
 - Don't optimize prematurely (measure first!)
-- Don't use inline functions in render
-- Don't create new objects/arrays in render
+- Don't manually add memo/useCallback/useMemo if using React Compiler (it's automatic)
+- Don't use inline functions in render (unless using React Compiler)
+- Don't create new objects/arrays in render (unless using React Compiler)
 - Don't forget to set estimatedItemSize on FlashList
 - Don't ignore the why-did-you-render warnings
 - Don't use ScrollView for long lists
-- Don't skip React.memo when passing callbacks
+- Don't skip React.memo when passing callbacks (unless using React Compiler)
 
 ## Examples
 
@@ -233,13 +340,18 @@ import { Image } from 'expo-image';
 ```typescript
 // ✅ Performance Optimizations Checklist
 
+// 0. React Compiler (Expo SDK 52+) - BEST OPTION
+// Install: npx expo install babel-plugin-react-compiler react-compiler-runtime
+// Configure babel.config.js with plugin
+// Automatic memoization - no manual memo/useCallback/useMemo needed!
+
 // 1. Lists
 import { FlashList } from '@shopify/flash-list';
 
 // 2. Images
 import { Image } from 'expo-image';
 
-// 3. Memoization
+// 3. Memoization (ONLY if NOT using React Compiler)
 const Component = memo(({ data }) => {
   const processed = useMemo(() => expensiveCalc(data), [data]);
   const handlePress = useCallback(() => {}, []);
@@ -254,7 +366,7 @@ const animatedStyle = useAnimatedStyle(() => ({
   transform: [{ translateX: withSpring(offset.value) }],
 }));
 
-// 5. Avoid inline styles
+// 5. Avoid inline styles (unless using React Compiler)
 const styles = StyleSheet.create({
   container: { flex: 1 },
 });
@@ -311,6 +423,7 @@ function Dashboard() {
 
 ## Resources
 
+- [React Compiler Guide](references/react-compiler-guide.md)
 - [Performance Checklist](references/performance-checklist.md)
 - [Flashlight Guide](references/flashlight-guide.md)
 - [Optimization Patterns](references/optimization-patterns.md)
@@ -318,6 +431,7 @@ function Dashboard() {
 
 ## Tools & Commands
 
+- `npx expo install babel-plugin-react-compiler` - Install React Compiler
 - `npx expo export --platform ios` - Export production bundle
 - `npx source-map-explorer dist/**/*.js` - Analyze bundle
 - `depcheck` - Find unused dependencies
@@ -362,11 +476,42 @@ useEffect(() => {
 }, []);
 ```
 
+### React Compiler not working
+
+**Problem**: Components still re-rendering unnecessarily
+
+**Solution**:
+```bash
+# 1. Verify installation
+npm list babel-plugin-react-compiler react-compiler-runtime
+
+# 2. Check babel.config.js includes the plugin
+cat babel.config.js
+
+# 3. Clear Metro cache and rebuild
+npx expo start --clear
+
+# 4. Check Metro logs for compilation messages
+# Should see: [React Compiler] Compiled X components
+
+# 5. Verify Expo SDK version (need 52+)
+npx expo --version
+```
+
+**Common issues**:
+- React Compiler requires Expo SDK 52+ and React Native 0.76+
+- Must install BOTH `babel-plugin-react-compiler` and `react-compiler-runtime`
+- Must clear Metro cache after adding plugin
+- Some third-party libraries may not be compatible yet
+
 ---
 
 ## Notes
 
+- **React Compiler** (Expo SDK 52+) automates memoization - use it for new projects
 - Profile on actual devices, not simulators/emulators
 - Low-end devices reveal performance issues first
 - Bundle size directly impacts app startup time
 - 60fps = 16.67ms per frame (budget carefully!)
+- React Compiler eliminates need for manual memo/useCallback/useMemo
+- Combine React Compiler with FlashList and Reanimated for best performance
