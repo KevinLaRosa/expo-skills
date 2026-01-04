@@ -23,26 +23,57 @@ Systematically analyze and optimize your Expo app's performance using React Comp
 
 ## Workflow
 
-### Step 1: Analyze Bundle Size
+### Step 1: Analyze Bundle Size with Expo Atlas
+
+**Expo Atlas** is the official Expo tool for bundle analysis (SDK 51+, recommended):
+
+```bash
+# Option 1: Interactive mode during development
+EXPO_ATLAS=true npx expo start
+
+# Then press Shift+M to open dev tools and access Atlas
+
+# Option 2: Production bundle analysis (recommended for accuracy)
+EXPO_ATLAS=true npx expo export
+
+# View the generated atlas
+npx expo-atlas .expo/atlas.jsonl
+
+# Or analyze specific platform
+EXPO_ATLAS=true npx expo export --platform ios
+```
+
+**What Expo Atlas shows:**
+- Interactive bundle graph with module relationships
+- Production bundle size breakdown
+- Platform-specific analysis (iOS, Android, Web)
+- Babel transformations applied to modules
+- Import/dependency relationships
+
+**How to use Atlas:**
+1. Hold ⌘ Cmd and click nodes to inspect transformed modules
+2. Look for unexpectedly large dependencies
+3. Trace import chains to find bloat sources
+4. Compare platform-specific bundles
+
+**Alternative: source-map-explorer (SDK 50 and earlier):**
 
 ```bash
 # Export production bundle
 npx expo export --platform ios
 
-# Analyze bundle with source-map-explorer
+# Analyze with source-map-explorer
 npx source-map-explorer dist/**/*.js --html bundle-report.html
 
 # Open report
 open bundle-report.html
-
-# Or use the script
-./expo-performance-audit/scripts/analyze-bundle.sh
 ```
 
 **Look for:**
 - Large dependencies (>100KB)
 - Duplicate packages
 - Unused code
+- Platform-specific bloat
 
 ### Step 2: Check for Unused Dependencies
 
@@ -370,6 +401,50 @@ import { Image } from 'expo-image';
 
 ## Examples
 
+### Bundle Analysis with Expo Atlas
+
+```bash
+# Step 1: Export production bundle with Atlas enabled
+EXPO_ATLAS=true npx expo export
+
+# Step 2: View the interactive bundle graph
+npx expo-atlas .expo/atlas.jsonl
+
+# Step 3: Analyze the results
+# - Look for large modules (>100KB)
+# - Identify duplicate packages
+# - Find unexpected dependencies
+# - Check platform-specific bloat
+
+# Example findings:
+# ❌ Bad: lodash (500KB) - replace with lodash-es or specific imports
+# ❌ Bad: moment (200KB) - replace with date-fns or day.js
+# ❌ Bad: Duplicate React versions - check peer dependencies
+# ✅ Good: Most packages <50KB
+```
+
+**Common bundle bloat culprits:**
+
+```typescript
+// ❌ Importing entire library
+import _ from 'lodash'; // Adds 500KB!
+
+// ✅ Import specific functions
+import debounce from 'lodash/debounce'; // Only 5KB
+
+// ❌ Large date library
+import moment from 'moment'; // 200KB
+
+// ✅ Lightweight alternative
+import { format } from 'date-fns'; // 20KB
+
+// ❌ Importing unused icons
+import * as Icons from '@expo/vector-icons'; // Huge!
+
+// ✅ Import specific icon sets
+import { Ionicons } from '@expo/vector-icons';
+```
+
 ### Performance Checklist
 
 ```typescript
@@ -466,9 +541,11 @@ function Dashboard() {
 
 ## Tools & Commands
 
+- `EXPO_ATLAS=true npx expo export` - Analyze bundle with Expo Atlas (recommended)
+- `npx expo-atlas .expo/atlas.jsonl` - View Expo Atlas results
 - `npx expo install babel-plugin-react-compiler` - Install React Compiler
 - `npx expo export --platform ios` - Export production bundle
-- `npx source-map-explorer dist/**/*.js` - Analyze bundle
+- `npx source-map-explorer dist/**/*.js` - Analyze bundle (alternative, SDK 50)
 - `depcheck` - Find unused dependencies
 - `npx knip` - Detect unused code
 - `flashlight measure` - Profile app performance
@@ -540,10 +617,39 @@ npx expo --version
 - Components with `try/catch/finally` won't be compiled (use TanStack Query or Error Boundaries)
 - Some third-party libraries may not be compatible yet
 
+### Expo Atlas not generating
+
+**Problem**: `.expo/atlas.jsonl` file not created
+
+**Solution**:
+```bash
+# 1. Ensure you're using Expo SDK 51+
+npx expo --version
+
+# 2. Use EXPO_ATLAS environment variable
+EXPO_ATLAS=true npx expo export
+
+# 3. Check .expo directory exists
+ls -la .expo/
+
+# 4. Try with specific platform
+EXPO_ATLAS=true npx expo export --platform web
+
+# 5. If still not working, check for export errors
+npx expo export --clear
+```
+
+**Common issues**:
+- Expo Atlas requires SDK 51+ (use source-map-explorer for SDK 50)
+- Must use `EXPO_ATLAS=true` environment variable
+- Export must complete successfully (check for build errors)
+- `.expo` directory must have write permissions
+
 ---
 
 ## Notes
 
+- **Expo Atlas** (SDK 51+) is the official tool for bundle analysis - use it instead of source-map-explorer
 - **React Compiler** (Expo SDK 52+) automates memoization - use it for new projects
 - **React Compiler cannot compile** components with `try/catch/finally` - use TanStack Query or Error Boundaries instead
 - Profile on actual devices, not simulators/emulators
@@ -553,3 +659,4 @@ npx expo --version
 - React Compiler eliminates need for manual memo/useCallback/useMemo
 - Combine React Compiler with FlashList and Reanimated for best performance
 - For data fetching with error handling, prefer TanStack Query over manual try/catch
+- Expo Atlas provides interactive bundle graphs and platform-specific analysis
