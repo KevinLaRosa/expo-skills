@@ -2,7 +2,7 @@
 name: uniwind-styling
 description: Style React Native components with Uniwind - the fastest Tailwind CSS bindings with compile-time processing and zero re-renders
 license: MIT
-compatibility: "Requires: Expo SDK 50+, tailwindcss@next (v4 beta), uniwind package"
+compatibility: "Requires: Expo SDK 50+, Tailwind CSS 4 (ONLY), uniwind package"
 ---
 
 # Uniwind Styling
@@ -11,10 +11,11 @@ compatibility: "Requires: Expo SDK 50+, tailwindcss@next (v4 beta), uniwind pack
 
 Implement Tailwind CSS styling in React Native using Uniwind, the fastest Tailwind bindings with compile-time CSS processing, zero runtime overhead, and full support for themes, platform variants, and custom CSS.
 
+**IMPORTANT**: Uniwind supports Tailwind CSS 4 only. Make sure you upgrade Tailwind CSS to version 4.
+
 ## When to Use This Skill
 
 - Setting up a new Expo project with Tailwind CSS styling
-- Migrating from NativeWind v3 to Uniwind
 - Need compile-time CSS processing for maximum performance
 - Want zero re-renders on style updates
 - Building apps with light/dark themes or custom theme systems
@@ -25,8 +26,8 @@ Implement Tailwind CSS styling in React Native using Uniwind, the fastest Tailwi
 ### Step 1: Install Uniwind
 
 ```bash
-# Install Uniwind and Tailwind CSS v4
-npm install uniwind tailwindcss@next
+# Install Uniwind and Tailwind CSS 4 (REQUIRED)
+npm install uniwind tailwindcss@4
 
 # Install peer dependencies
 npm install react-native-reanimated react-native-safe-area-context
@@ -189,9 +190,9 @@ export default function App() {
 
 **Don't:**
 - Don't mix inline styles with className (choose one approach)
-- Don't use NativeWind v3 and Uniwind together (migrate completely)
 - Don't forget to import `global.css` in your app entry
 - Don't use deprecated `tw` prop (use `className`)
+- Don't use Tailwind CSS versions other than v4 (Uniwind only supports v4)
 - Avoid runtime style calculations (use CSS variables instead)
 
 ## Examples
@@ -262,7 +263,6 @@ const StyledGradient = withUniwind(LinearGradient, {
 - [Uniwind Full Documentation](references/uniwind-full-docs.md)
 - [Theme System Guide](references/theme-system.md)
 - [Platform-Specific Styling](references/platform-specific.md)
-- [Migration from NativeWind](references/migration-nativewind.md)
 - [Official Docs](https://docs.uniwind.dev/)
 
 ## Tools & Commands
@@ -308,7 +308,8 @@ import 'uniwind/types';
 
 ## Notes
 
-- Uniwind requires Tailwind CSS v4 (currently in beta)
+- **Uniwind supports Tailwind CSS 4 ONLY** - make sure you upgrade to v4
 - Compile-time processing = zero runtime overhead
 - Compatible with Expo Go (free version)
 - Pro version offers C++ engine with Reanimated 4 support
+- Uniwind is NOT NativeWind - they are separate libraries
