@@ -200,9 +200,9 @@
     "references": []
   },
   {
-    "name": "victory-native-charts",
-    "folder": "victory-native-charts",
-    "description": "High-performance charts with Victory Native XL - powered by Skia and Reanimated for smooth 60fps visualizations",
+    "name": "react-native-graph",
+    "folder": "react-native-graph",
+    "description": "High-performance line charts with react-native-graph - powered by Skia for smooth 120fps visualizations with pan gestures",
     "references": []
   },
   {
