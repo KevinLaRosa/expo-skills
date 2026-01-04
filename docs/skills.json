@@ -206,6 +206,12 @@
     "references": []
   },
   {
+    "name": "react-native-advanced-optimization",
+    "folder": "react-native-advanced-optimization",
+    "description": "Advanced React Native optimization with data-driven profiling, FPS/TTI metrics, Concurrent React, New Architecture, and production-grade tooling",
+    "references": []
+  },
+  {
     "name": "zeego-menus",
     "folder": "zeego-menus",
     "description": "Native menus with Zeego - beautiful dropdown and context menus for iOS, Android, and Web with a unified API",

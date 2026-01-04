@@ -102,7 +102,7 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 ~/path/to/expo-skills/expo-build-debugger/scripts/build.sh --profile preview
 ```
 
-## Available Skills (30 Total)
+## Available Skills (31 Total)
 
 ### Core Development
 - **expo-logger-setup** - Structured logging system with categories and emojis
@@ -127,6 +127,7 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 
 ### Performance & Quality
 - **expo-performance-audit** - Bundle analysis, Flashlight profiling, optimization patterns
+- **react-native-advanced-optimization** - Data-driven optimization with FPS/TTI metrics, Concurrent React, New Architecture
 - **expo-fast-image** - Fast image loading and caching (solves flickering, poor caching)
 - **nitro-fetch** - Ultra-fast HTTP requests with HTTP/2, HTTP/3, prefetching (220ms faster TTI)
 - **reanimated-performance** - 60fps animations with worklets and SharedValues
