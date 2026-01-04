@@ -123,7 +123,7 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 ### UI Components
 - **expo-ui-components** - Native SwiftUI and Jetpack Compose components for React Native
 - **zeego-menus** - Native dropdown and context menus for iOS, Android, and Web
-- **victory-native-charts** - High-performance charts powered by Skia and Reanimated
+- **react-native-graph** - High-performance line charts with 120fps animations (by Margelo)
 
 ### Performance & Quality
 - **expo-performance-audit** - Bundle analysis, Flashlight profiling, optimization patterns
