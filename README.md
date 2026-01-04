@@ -102,7 +102,7 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 ~/path/to/expo-skills/expo-build-debugger/scripts/build.sh --profile preview
 ```
 
-## Available Skills (32 Total)
+## Available Skills (34 Total)
 
 ### Core Development
 - **expo-logger-setup** - Structured logging system with categories and emojis
@@ -152,6 +152,10 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 - **swift-debugging** - Debug Swift code with Xcode, LLDB, and Instruments
 - **kotlin-modules** - Build Android modules with Kotlin and coroutines
 - **apple-docs-search** - Search Apple Developer docs in AI-readable format (sosumi.ai)
+
+### Design & UX
+- **apple-hig-design** - Follow Apple's Human Interface Guidelines for iOS, iPadOS, macOS, watchOS, and tvOS apps
+- **material-design** - Follow Material Design 3 (Material You) guidelines for Android apps with dynamic color and adaptive layouts
 
 ### Meta
 - **skill-creator** - Create new skills following agentskills.io standard

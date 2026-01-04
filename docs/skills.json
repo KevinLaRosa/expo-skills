@@ -6,6 +6,12 @@
     "references": []
   },
   {
+    "name": "apple-hig-design",
+    "folder": "apple-hig-design",
+    "description": "Design iOS, iPadOS, macOS, watchOS, and tvOS apps following Apple's Human Interface Guidelines for native-feeling experiences with proper components, layouts, and accessibility",
+    "references": []
+  },
+  {
     "name": "better-auth-expo",
     "folder": "better-auth-expo",
     "description": "Implement comprehensive authentication in Expo apps with Better Auth - email/password, OAuth providers, anonymous auth, 2FA, and secure session management",
@@ -30,13 +36,31 @@
     "name": "expo-build-debugger",
     "folder": "expo-build-debugger",
     "description": "Build, run, and debug Expo apps on simulators and devices using EAS Build with optimized workflows for development, preview, and production",
-    "references": []
+    "references": [
+      {
+        "title": "EAS Build Profiles Reference",
+        "file": "references/eas-build-profiles.md"
+      },
+      {
+        "title": "Simulator and Emulator Debugging Reference",
+        "file": "references/simulator-debugging.md"
+      }
+    ]
   },
   {
     "name": "expo-changelog-generator",
     "folder": "expo-changelog-generator",
     "description": "Generate App Store and Play Store release notes automatically from git commit history and prepare releases with EAS Submit",
-    "references": []
+    "references": [
+      {
+        "title": "Release Notes Guidelines",
+        "file": "references/release-notes-guidelines.md"
+      },
+      {
+        "title": "Versioning Strategy",
+        "file": "references/versioning-strategy.md"
+      }
+    ]
   },
   {
     "name": "expo-fast-image",
@@ -59,13 +83,39 @@
     "name": "expo-native-modules",
     "folder": "expo-native-modules",
     "description": "Create Expo modules with Swift/Kotlin to expose native APIs, integrate native SDKs, and bridge platform functionality to React Native",
-    "references": []
+    "references": [
+      {
+        "title": "Kotlin Best Practices for Expo Modules",
+        "file": "references/kotlin-best-practices.md"
+      },
+      {
+        "title": "Swift Best Practices for Expo Modules",
+        "file": "references/swift-best-practices.md"
+      }
+    ]
   },
   {
     "name": "expo-performance-audit",
     "folder": "expo-performance-audit",
-    "description": "Audit and optimize Expo/React Native app performance with bundle analysis, Flashlight profiling, and proven optimization patterns",
-    "references": []
+    "description": "Audit and optimize Expo/React Native app performance with React Compiler, bundle analysis, Flashlight profiling, and proven optimization patterns",
+    "references": [
+      {
+        "title": "Flashlight Performance Testing Guide",
+        "file": "references/flashlight-guide.md"
+      },
+      {
+        "title": "React Native Optimization Patterns",
+        "file": "references/optimization-patterns.md"
+      },
+      {
+        "title": "React Native & Expo Performance Audit Checklist",
+        "file": "references/performance-checklist.md"
+      },
+      {
+        "title": "React Compiler Guide for Expo",
+        "file": "references/react-compiler-guide.md"
+      }
+    ]
   },
   {
     "name": "expo-secure-store",
@@ -77,7 +127,16 @@
     "name": "expo-sentry-integration",
     "folder": "expo-sentry-integration",
     "description": "Monitor production errors and performance with Sentry integration for Expo apps including source maps and release tracking",
-    "references": []
+    "references": [
+      {
+        "title": "Complete Sentry Setup Guide for Expo",
+        "file": "references/sentry-expo-guide.md"
+      },
+      {
+        "title": "Source Maps Upload Guide for EAS Build",
+        "file": "references/source-maps.md"
+      }
+    ]
   },
   {
     "name": "expo-sqlite",
@@ -109,6 +168,12 @@
     ]
   },
   {
+    "name": "material-design",
+    "folder": "material-design",
+    "description": "Design Android apps following Material Design 3 (Material You) guidelines with dynamic color, adaptive layouts, and accessible components for native Android experiences",
+    "references": []
+  },
+  {
     "name": "mmkv-storage",
     "folder": "mmkv-storage",
     "description": "Ultra-fast key-value storage with react-native-mmkv - 30x faster than AsyncStorage with encryption support",
@@ -127,10 +192,37 @@
     "references": []
   },
   {
+    "name": "react-native-advanced-optimization",
+    "folder": "react-native-advanced-optimization",
+    "description": "Advanced React Native optimization with data-driven profiling, FPS/TTI metrics, Concurrent React, New Architecture, and production-grade tooling",
+    "references": []
+  },
+  {
+    "name": "react-native-graph",
+    "folder": "react-native-graph",
+    "description": "High-performance line charts with react-native-graph - powered by Skia for smooth 120fps visualizations with pan gestures",
+    "references": []
+  },
+  {
+    "name": "react-native-security",
+    "folder": "react-native-security",
+    "description": "Secure React Native apps with encryption, certificate pinning, jailbreak detection, and security auditing using RNSEC scanner",
+    "references": []
+  },
+  {
     "name": "reanimated-performance",
     "folder": "reanimated-performance",
     "description": "Create 60fps animations with React Native Reanimated using worklets, SharedValues, and gesture-driven interactions",
-    "references": []
+    "references": [
+      {
+        "title": "Gesture Handler Integration Guide",
+        "file": "references/gesture-handler-integration.md"
+      },
+      {
+        "title": "Worklets Guide",
+        "file": "references/worklets-guide.md"
+      }
+    ]
   },
   {
     "name": "revenuecat-expo",
@@ -147,7 +239,16 @@
     "name": "skia-animations",
     "folder": "skia-animations",
     "description": "Build high-performance charts, gradients, and custom graphics with React Native Skia for 60fps visualizations",
-    "references": []
+    "references": [
+      {
+        "title": "React Native Skia Patterns Reference",
+        "file": "references/skia-patterns.md"
+      },
+      {
+        "title": "Victory Native XL Integration Reference",
+        "file": "references/victory-native-integration.md"
+      }
+    ]
   },
   {
     "name": "skill-creator",
@@ -197,25 +298,24 @@
     "name": "uniwind-styling",
     "folder": "uniwind-styling",
     "description": "Style React Native components with Uniwind - the fastest Tailwind CSS bindings with compile-time processing and zero re-renders",
-    "references": []
-  },
-  {
-    "name": "react-native-graph",
-    "folder": "react-native-graph",
-    "description": "High-performance line charts with react-native-graph - powered by Skia for smooth 120fps visualizations with pan gestures",
-    "references": []
-  },
-  {
-    "name": "react-native-advanced-optimization",
-    "folder": "react-native-advanced-optimization",
-    "description": "Advanced React Native optimization with data-driven profiling, FPS/TTI metrics, Concurrent React, New Architecture, and production-grade tooling",
-    "references": []
-  },
-  {
-    "name": "react-native-security",
-    "folder": "react-native-security",
-    "description": "Secure React Native apps with encryption, certificate pinning, jailbreak detection, and security auditing using RNSEC scanner",
-    "references": []
+    "references": [
+      {
+        "title": "Migration Guide: NativeWind to Uniwind",
+        "file": "references/migration-nativewind.md"
+      },
+      {
+        "title": "Platform-Specific Styling in Uniwind",
+        "file": "references/platform-specific.md"
+      },
+      {
+        "title": "Uniwind Theme System Reference",
+        "file": "references/theme-system.md"
+      },
+      {
+        "title": "Uniwind - Complete Documentation Reference",
+        "file": "references/uniwind-full-docs.md"
+      }
+    ]
   },
   {
     "name": "zeego-menus",
