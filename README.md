@@ -102,7 +102,7 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 ~/path/to/expo-skills/expo-build-debugger/scripts/build.sh --profile preview
 ```
 
-## Available Skills (31 Total)
+## Available Skills (32 Total)
 
 ### Core Development
 - **expo-logger-setup** - Structured logging system with categories and emojis
@@ -140,6 +140,7 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 ### Production & Monitoring
 - **expo-sentry-integration** - Error tracking and performance monitoring
 - **expo-changelog-generator** - Automated release notes from git history
+- **react-native-security** - Secure apps with encryption, certificate pinning, jailbreak detection, RNSEC scanner
 
 ### Advanced
 - **expo-apple-targets** - iOS widgets, notification extensions, WatchKit apps (using expo-apple-targets)

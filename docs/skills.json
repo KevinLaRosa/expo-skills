@@ -212,6 +212,12 @@
     "references": []
   },
   {
+    "name": "react-native-security",
+    "folder": "react-native-security",
+    "description": "Secure React Native apps with encryption, certificate pinning, jailbreak detection, and security auditing using RNSEC scanner",
+    "references": []
+  },
+  {
     "name": "zeego-menus",
     "folder": "zeego-menus",
     "description": "Native menus with Zeego - beautiful dropdown and context menus for iOS, Android, and Web with a unified API",
