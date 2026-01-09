@@ -20,12 +20,14 @@ Implement ultra-fast key-value storage in React Native with react-native-mmkv, p
 - Need encrypted storage
 - Want synchronous storage access
 - Need high-performance key-value storage
+- Persist Zustand state (30x faster than AsyncStorage - see `zustand-state` skill for complete integration)
 
 **When you see:**
 - "AsyncStorage is too slow"
 - "Need faster storage"
 - "Persist user settings"
 - "Cache data locally"
+- "Zustand persist middleware"
 
 **Prerequisites**: React Native 0.74+, New Architecture enabled.
 
@@ -315,6 +317,64 @@ export const cache = {
 cache.set('api.users', usersData, 5 * 60 * 1000); // 5 min TTL
 const users = cache.get<User[]>('api.users');
 ```
+
+### Zustand Persist Middleware Integration
+
+Use MMKV with Zustand for 30x faster state persistence:
+
+```typescript
+// utils/mmkv-storage.ts
+import { MMKV } from 'react-native-mmkv';
+import { StateStorage } from 'zustand/middleware';
+
+export const storage = new MMKV();
+
+export const mmkvStorage: StateStorage = {
+  setItem: (name, value) => {
+    return storage.set(name, value);
+  },
+  getItem: (name) => {
+    const value = storage.getString(name);
+    return value ?? null;
+  },
+  removeItem: (name) => {
+    return storage.delete(name);
+  },
+};
+```
+
+```typescript
+// stores/settingsStore.ts
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { mmkvStorage } from '../utils/mmkv-storage';
+
+interface SettingsStore {
+  theme: 'light' | 'dark';
+  notifications: boolean;
+  setTheme: (theme: 'light' | 'dark') => void;
+  toggleNotifications: () => void;
+}
+
+export const useSettingsStore = create<SettingsStore>()(
+  persist(
+    (set) => ({
+      theme: 'light',
+      notifications: true,
+      setTheme: (theme) => set({ theme }),
+      toggleNotifications: () => set((state) => ({
+        notifications: !state.notifications
+      })),
+    }),
+    {
+      name: 'settings-storage',
+      storage: createJSONStorage(() => mmkvStorage), // 30x faster than AsyncStorage
+    }
+  )
+);
+```
+
+**See also:** `zustand-state` skill for complete Zustand + MMKV integration guide.
 
 ## Resources
 

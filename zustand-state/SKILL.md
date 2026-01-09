@@ -195,7 +195,168 @@ export const useSettingsStore = create<SettingsStore>()(
 
 **IMPORTANT**: Notice the extra `()` after `create<SettingsStore>()` when using middleware with TypeScript.
 
-### Step 6: Integrate DevTools Middleware
+### Step 6: Use MMKV for High-Performance Persistence (Recommended)
+
+For production apps, use MMKV instead of AsyncStorage for **30x faster performance** and synchronous operations.
+
+**Install MMKV:**
+
+```bash
+npm install react-native-mmkv
+
+# For Expo
+npx expo install react-native-mmkv
+```
+
+**Create MMKV storage adapter:**
+
+```typescript
+// utils/mmkv-storage.ts
+import { MMKV } from 'react-native-mmkv';
+import { StateStorage } from 'zustand/middleware';
+
+// Initialize MMKV instance
+export const storage = new MMKV();
+
+// Create Zustand storage adapter
+export const mmkvStorage: StateStorage = {
+  setItem: (name, value) => {
+    return storage.set(name, value);
+  },
+  getItem: (name) => {
+    const value = storage.getString(name);
+    return value ?? null;
+  },
+  removeItem: (name) => {
+    return storage.delete(name);
+  },
+};
+```
+
+**Use MMKV in persist middleware:**
+
+```typescript
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { mmkvStorage } from './utils/mmkv-storage';
+
+interface SettingsStore {
+  theme: 'light' | 'dark';
+  notifications: boolean;
+  language: string;
+  setTheme: (theme: 'light' | 'dark') => void;
+  toggleNotifications: () => void;
+  setLanguage: (language: string) => void;
+}
+
+export const useSettingsStore = create<SettingsStore>()(
+  persist(
+    (set) => ({
+      theme: 'light',
+      notifications: true,
+      language: 'en',
+      setTheme: (theme) => set({ theme }),
+      toggleNotifications: () => set((state) => ({
+        notifications: !state.notifications
+      })),
+      setLanguage: (language) => set({ language }),
+    }),
+    {
+      name: 'settings-storage',
+      storage: createJSONStorage(() => mmkvStorage), // Use MMKV instead of AsyncStorage
+    }
+  )
+);
+```
+
+**Why MMKV over AsyncStorage:**
+- ⚡ **30x faster** read/write operations
+- 🔄 **Synchronous API** - no async/await needed
+- 📦 **Smaller memory footprint**
+- 🔐 **Built-in encryption support**
+- 🚀 **Production-ready** - used by major apps (Discord, Instagram)
+
+**Complete example with encryption:**
+
+```typescript
+import { MMKV } from 'react-native-mmkv';
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { StateStorage } from 'zustand/middleware';
+
+// Create encrypted MMKV instance
+const secureStorage = new MMKV({
+  id: 'secure-app-storage',
+  encryptionKey: 'your-encryption-key-here', // Use secure key generation in production
+});
+
+// MMKV storage adapter
+const secureMMKVStorage: StateStorage = {
+  setItem: (name, value) => {
+    return secureStorage.set(name, value);
+  },
+  getItem: (name) => {
+    const value = secureStorage.getString(name);
+    return value ?? null;
+  },
+  removeItem: (name) => {
+    return secureStorage.delete(name);
+  },
+};
+
+// Auth store with encrypted persistence
+interface AuthStore {
+  user: User | null;
+  token: string | null;
+  refreshToken: string | null;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+}
+
+export const useAuthStore = create<AuthStore>()(
+  persist(
+    (set) => ({
+      user: null,
+      token: null,
+      refreshToken: null,
+
+      login: async (email, password) => {
+        const response = await fetch('https://api.example.com/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const { user, token, refreshToken } = await response.json();
+        set({ user, token, refreshToken });
+      },
+
+      logout: () => set({ user: null, token: null, refreshToken: null }),
+    }),
+    {
+      name: 'auth-storage',
+      storage: createJSONStorage(() => secureMMKVStorage), // Encrypted storage
+      partialize: (state) => ({
+        user: state.user,
+        token: state.token,
+        refreshToken: state.refreshToken,
+      }),
+    }
+  )
+);
+```
+
+**Performance comparison:**
+
+| Operation | AsyncStorage | MMKV | Speed Increase |
+|-----------|--------------|------|----------------|
+| Read      | ~14ms        | ~0.5ms | 28x faster |
+| Write     | ~18ms        | ~0.6ms | 30x faster |
+| Delete    | ~12ms        | ~0.4ms | 30x faster |
+
+**See also:** `mmkv-storage` skill for complete MMKV documentation.
+
+### Step 7: Integrate DevTools Middleware
 
 ```typescript
 import { create } from 'zustand';
@@ -250,7 +411,7 @@ export const useTodoStore = create<TodoStore>()(
 # Works automatically in development mode
 ```
 
-### Step 7: Use Immer Middleware for Nested Updates
+### Step 8: Use Immer Middleware for Nested Updates
 
 ```typescript
 import { create } from 'zustand';
@@ -298,7 +459,7 @@ export const useCartStore = create<CartStore>()(
 - Cleaner code for nested updates
 - No spread operators needed
 
-### Step 8: Combine Multiple Middleware
+### Step 9: Combine Multiple Middleware
 
 ```typescript
 import { create } from 'zustand';
@@ -350,7 +511,7 @@ export const useAuthStore = create<AuthStore>()(
 
 **Middleware order:** `devtools > persist > immer > store`
 
-### Step 9: Access Store Outside React
+### Step 10: Access Store Outside React
 
 ```typescript
 // In API utility or non-React code
@@ -383,7 +544,7 @@ useAuthStore.setState({ token: 'new-token' });
 unsubscribe();
 ```
 
-### Step 10: Create Slices for Large Stores
+### Step 11: Create Slices for Large Stores
 
 ```typescript
 import { create } from 'zustand';
@@ -720,6 +881,8 @@ const useUsersStore = createApiStore<User[]>('https://api.example.com/users');
 - [Official Documentation](https://zustand-demo.pmnd.rs/)
 - [NPM Package](https://www.npmjs.com/package/zustand)
 - [Comparison with Redux](https://github.com/pmndrs/zustand#comparison-with-redux)
+- [MMKV Persist Middleware Docs](https://github.com/mrousavy/react-native-mmkv/blob/main/docs/WRAPPER_ZUSTAND_PERSIST_MIDDLEWARE.md)
+- `mmkv-storage` skill - Complete MMKV integration guide
 
 ## Tools & Commands
 
