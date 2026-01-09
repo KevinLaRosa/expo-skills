@@ -43,33 +43,65 @@ These skills are optimized for modern Expo projects using:
 
 ## Installation
 
-### For AI Agents (Claude Code, Codex, etc.)
+### For AI Agents (Claude Code, Cursor, Codex, etc.)
 
-**Option 1: Use existing local repository (Recommended)**
+**Automated Installation (Recommended)**
+
 ```bash
-# Navigate to where you cloned this repo
-cd ~/path/to/expo-skills
+# Clone the repository
+git clone https://github.com/KevinLaRosa/expo-skills.git
+cd expo-skills
 
-# Create symlink to Claude Code's skills directory
-ln -s $(pwd) ~/.claude/skills/expo-skills
+# Run the installation script
+./scripts/install-skills.sh         # Install for all AI agents (Claude Code + Cursor)
+
+# Or install for specific agent:
+./scripts/install-skills.sh claude  # Claude Code only
+./scripts/install-skills.sh cursor  # Cursor only
 
 # Verify installation
 ls -la ~/.claude/skills/
+ls -la ~/.cursor/skills/
 ```
 
-**Option 2: Clone from GitHub**
+The install script will:
+- Create `~/.claude/skills/` and `~/.cursor/skills/` directories if they don't exist
+- Create symlinks for all 36+ skills
+- Skip skills that are already installed
+- Update symlinks if they point to wrong locations
+- Support Claude Code, Cursor, and other agentskills.io-compatible AI agents
+
+**Uninstallation**
+
+```bash
+cd expo-skills
+./scripts/uninstall-skills.sh         # Uninstall from all agents
+./scripts/uninstall-skills.sh claude  # Uninstall from Claude Code only
+./scripts/uninstall-skills.sh cursor  # Uninstall from Cursor only
+```
+
+**Manual Installation (Alternative)**
+
+If you prefer manual setup:
+
 ```bash
 # Clone repository
 git clone https://github.com/KevinLaRosa/expo-skills.git
-
-# Create symlink
 cd expo-skills
+
+# Create symlink for entire repository
 ln -s $(pwd) ~/.claude/skills/expo-skills
+
+# Or create individual symlinks
+ln -s $(pwd)/expo-logger-setup ~/.claude/skills/expo-logger-setup
+ln -s $(pwd)/uniwind-styling ~/.claude/skills/uniwind-styling
+# ... repeat for other skills
 ```
 
-**Option 3: Use directly in your Expo project**
+**Use Directly in Your Expo Project**
+
 ```bash
-# Copy specific skills to your project (from where you cloned the repo)
+# Copy specific skills to your project
 cp -r ~/path/to/expo-skills/expo-logger-setup ./skills/
 cp -r ~/path/to/expo-skills/uniwind-styling ./skills/
 
