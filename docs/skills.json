@@ -157,6 +157,12 @@
     "references": []
   },
   {
+    "name": "expo-unit-testing",
+    "folder": "expo-unit-testing",
+    "description": "Unit test React Native/Expo apps with Jest and React Native Testing Library using jest-expo preset for component testing, hooks, and mocking",
+    "references": []
+  },
+  {
     "name": "kotlin-modules",
     "folder": "kotlin-modules",
     "description": "Build performant Android modules with Kotlin for Expo using Expo Modules API with coroutines, best practices, and production-grade patterns",
@@ -234,6 +240,12 @@
         "file": "references/revenuecat-expo.md"
       }
     ]
+  },
+  {
+    "name": "shopify-automation",
+    "folder": "shopify-automation",
+    "description": "Automate Shopify store setup with collections, products, pages, and blog using Client Credentials Grant OAuth (2026+ method) for complete hands-free store configuration",
+    "references": []
   },
   {
     "name": "skia-animations",

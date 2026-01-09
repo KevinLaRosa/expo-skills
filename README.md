@@ -102,12 +102,13 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 ~/path/to/expo-skills/expo-build-debugger/scripts/build.sh --profile preview
 ```
 
-## Available Skills (34 Total)
+## Available Skills (35 Total)
 
 ### Core Development
 - **expo-logger-setup** - Structured logging system with categories and emojis
 - **expo-build-debugger** - EAS Build, simulator debugging, and profiling
 - **expo-typescript-fixer** - TypeScript quality and strict mode migration
+- **expo-unit-testing** - Unit testing with Jest and React Native Testing Library using jest-expo preset
 
 ### Styling
 - **uniwind-styling** - Tailwind CSS styling with compile-time optimizations
