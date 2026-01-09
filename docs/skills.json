@@ -163,6 +163,41 @@
     "references": []
   },
   {
+    "name": "gluestack-ui",
+    "folder": "gluestack-ui",
+    "description": "Universal UI component library with Gluestack UI v2 - 30+ accessible, copy-paste components for React Native/Expo and React/Next.js with dark mode, NativeWind support, and no vendor lock-in",
+    "references": [
+      {
+        "title": "Data Display Components Reference",
+        "file": "references/data-display.md"
+      },
+      {
+        "title": "Feedback Components Reference",
+        "file": "references/feedback-components.md"
+      },
+      {
+        "title": "Form Components Reference",
+        "file": "references/forms-components.md"
+      },
+      {
+        "title": "Layout Components Reference",
+        "file": "references/layout-components.md"
+      },
+      {
+        "title": "Overlay Components Reference",
+        "file": "references/overlays-components.md"
+      },
+      {
+        "title": "Theming and Customization Reference",
+        "file": "references/theming-customization.md"
+      },
+      {
+        "title": "Troubleshooting Reference",
+        "file": "references/troubleshooting.md"
+      }
+    ]
+  },
+  {
     "name": "kotlin-modules",
     "folder": "kotlin-modules",
     "description": "Build performant Android modules with Kotlin for Expo using Expo Modules API with coroutines, best practices, and production-grade patterns",

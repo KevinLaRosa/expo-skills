@@ -34,7 +34,7 @@ These skills are optimized for modern Expo projects using:
 - **State**: Zustand + TanStack Query
 - **Styling**: NativeWind v4, Uniwind + Tailwind CSS, Unistyles (no Tailwind)
 - **Animations**: Reanimated 4
-- **UI**: Expo UI, Skia (charts, graphics), Victory Native (charts), Zeego (menus)
+- **UI**: Gluestack UI, Expo UI, Skia (charts, graphics), Victory Native (charts), Zeego (menus)
 - **Native**: Swift modules, widgets, custom notifications
 - **Monitoring**: Sentry
 - **Storage**: Expo Secure Store, MMKV, SQLite
@@ -134,7 +134,7 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 ~/path/to/expo-skills/expo-build-debugger/scripts/build.sh --profile preview
 ```
 
-## Available Skills (36 Total)
+## Available Skills (38 Total)
 
 ### Core Development
 - **expo-logger-setup** - Structured logging system with categories and emojis
@@ -155,6 +155,7 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 - **expo-secure-store** - Encrypted storage with Keychain (iOS) and EncryptedSharedPreferences (Android)
 
 ### UI Components
+- **gluestack-ui** - Universal component library with 30+ accessible, copy-paste components (React Native + React)
 - **expo-ui-components** - Native SwiftUI and Jetpack Compose components for React Native
 - **zeego-menus** - Native dropdown and context menus for iOS, Android, and Web
 - **react-native-graph** - High-performance line charts with 120fps animations (by Margelo)
