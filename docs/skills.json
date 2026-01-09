@@ -186,6 +186,29 @@
     "references": []
   },
   {
+    "name": "nativewind-styling",
+    "folder": "nativewind-styling",
+    "description": "Style React Native apps with NativeWind v4 - official Tailwind CSS integration with className prop, dark mode support, responsive design, and platform-specific styling for Expo and React Native",
+    "references": [
+      {
+        "title": "Dark Mode & Theming Guide",
+        "file": "references/dark-mode-theming.md"
+      },
+      {
+        "title": "Platform-Specific Styling",
+        "file": "references/platform-specific-styling.md"
+      },
+      {
+        "title": "Responsive Design & Breakpoints",
+        "file": "references/responsive-breakpoints.md"
+      },
+      {
+        "title": "NativeWind Troubleshooting Guide",
+        "file": "references/troubleshooting-guide.md"
+      }
+    ]
+  },
+  {
     "name": "nitro-fetch",
     "folder": "nitro-fetch",
     "description": "Ultra-fast HTTP requests with react-native-nitro-fetch - drop-in fetch replacement with HTTP/2, HTTP/3, prefetching, and worklet support for 220ms faster TTI",

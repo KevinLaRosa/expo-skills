@@ -32,7 +32,7 @@ These skills are optimized for modern Expo projects using:
 
 - **Runtime**: Expo SDK 54+ with Expo Router
 - **State**: Zustand + TanStack Query
-- **Styling**: Uniwind + Tailwind CSS, Unistyles (no Tailwind)
+- **Styling**: NativeWind v4, Uniwind + Tailwind CSS, Unistyles (no Tailwind)
 - **Animations**: Reanimated 4
 - **UI**: Expo UI, Skia (charts, graphics), Victory Native (charts), Zeego (menus)
 - **Native**: Swift modules, widgets, custom notifications
@@ -102,7 +102,7 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 ~/path/to/expo-skills/expo-build-debugger/scripts/build.sh --profile preview
 ```
 
-## Available Skills (35 Total)
+## Available Skills (36 Total)
 
 ### Core Development
 - **expo-logger-setup** - Structured logging system with categories and emojis
@@ -111,7 +111,8 @@ cp ~/path/to/expo-skills/expo-logger-setup/templates/* ./src/utils/logger/
 - **expo-unit-testing** - Unit testing with Jest and React Native Testing Library using jest-expo preset
 
 ### Styling
-- **uniwind-styling** - Tailwind CSS styling with compile-time optimizations
+- **nativewind-styling** - Official NativeWind v4 with Tailwind CSS 3.4.x, className prop, dark mode, responsive design
+- **uniwind-styling** - Tailwind CSS styling with compile-time optimizations (Tailwind 4 only, 2.5x faster)
 - **unistyles-styling** - StyleSheet superset with themes, variants, breakpoints (no Tailwind)
 
 ### State & Data
