@@ -13,6 +13,19 @@ Build universal UIs with Gluestack UI v2, a copy-paste component library providi
 
 **Philosophy**: Copy-paste components, modify freely, keep full control. Inspired by shadcn/ui but extended for mobile platforms.
 
+## Version & Documentation
+
+**This skill covers Gluestack UI v2** (current stable version as of 2026).
+
+**Complementary Resources:**
+- **This skill**: Integration patterns, workflows, troubleshooting, complete examples
+- **Official docs**: https://gluestack.io/ui/docs - Latest API reference and updates
+- **MCP server** (if available): Real-time component API lookup and props reference
+
+**Use this skill for:** Copy-paste workflows, compound component structures, form validation patterns, dark mode setup, common issues.
+
+**Use official docs/MCP for:** Latest prop definitions, new component releases, API breaking changes.
+
 ## When to Use This Skill
 
 - Building universal apps (web + mobile with shared codebase)
@@ -671,6 +684,7 @@ export function AlertExample() {
 - [Feedback Components Reference](references/feedback-components.md) - Toast, Alert, Progress, Spinner, Skeleton
 - [Data Display Reference](references/data-display.md) - Avatar, Badge, Card, Table, Accordion
 - [Theming & Customization Guide](references/theming-customization.md) - Design tokens, dark mode, custom themes
+- [Animations Integration Guide](references/animations-integration.md) - Reanimated, Moti, animated components
 - [Troubleshooting Guide](references/troubleshooting.md) - Common issues and solutions
 - [Official Gluestack Documentation](https://gluestack.io/)
 - [Component Reference](https://gluestack.io/ui/docs/components)

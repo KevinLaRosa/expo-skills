@@ -168,6 +168,10 @@
     "description": "Universal UI component library with Gluestack UI v2 - 30+ accessible, copy-paste components for React Native/Expo and React/Next.js with dark mode, NativeWind support, and no vendor lock-in",
     "references": [
       {
+        "title": "Animations Integration Reference",
+        "file": "references/animations-integration.md"
+      },
+      {
         "title": "Data Display Components Reference",
         "file": "references/data-display.md"
       },
