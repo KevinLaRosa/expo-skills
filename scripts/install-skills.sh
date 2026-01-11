@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Install Expo Skills for AI Agents (Claude Code, Cursor, Codex, etc.)
-# Creates symlinks in ~/.claude/skills/ and ~/.cursor/skills/ for all skills in this repository
+# Install Expo Skills for AI Agents (Claude Code, Cursor, OpenCode, Codex, etc.)
+# Creates symlinks in ~/.claude/skills/, ~/.cursor/skills/, and ~/.config/opencode/skill/
+# for all skills in this repository
 
 set -e
 
@@ -19,6 +20,7 @@ REPO_DIR="$(dirname "$SCRIPT_DIR")"
 # Target directories for AI agents
 CLAUDE_SKILLS_DIR="$HOME/.claude/skills"
 CURSOR_SKILLS_DIR="$HOME/.cursor/skills"
+OPENCODE_SKILLS_DIR="$HOME/.config/opencode/skill"
 
 # Parse command line arguments
 AGENT="all"
@@ -30,6 +32,47 @@ echo -e "${BLUE}================================================${NC}"
 echo -e "${BLUE}Expo Skills Installer for AI Agents${NC}"
 echo -e "${BLUE}================================================${NC}"
 echo ""
+
+# If no argument provided, show interactive menu
+if [ $# -eq 0 ]; then
+    echo -e "${YELLOW}Select installation target:${NC}"
+    echo ""
+    echo "  1) All agents (Claude Code, Cursor, OpenCode)"
+    echo "  2) Claude Code only"
+    echo "  3) Cursor only"
+    echo "  4) OpenCode only"
+    echo "  5) Custom selection"
+    echo ""
+    read -p "Enter your choice (1-5): " choice
+    echo ""
+
+    case "$choice" in
+        1)
+            AGENT="all"
+            ;;
+        2)
+            AGENT="claude"
+            ;;
+        3)
+            AGENT="cursor"
+            ;;
+        4)
+            AGENT="opencode"
+            ;;
+        5)
+            echo -e "${YELLOW}Select agents to install (space-separated):${NC}"
+            echo "  Options: claude cursor opencode"
+            echo ""
+            read -p "Enter agents: " -a selected_agents
+            AGENT="custom"
+            ;;
+        *)
+            echo -e "${RED}Invalid choice. Exiting.${NC}"
+            exit 1
+            ;;
+    esac
+fi
+
 
 # Function to install skills for a specific agent
 install_for_agent() {
@@ -107,11 +150,42 @@ case "$AGENT" in
     cursor)
         install_for_agent "$CURSOR_SKILLS_DIR" "Cursor"
         ;;
+    opencode)
+        install_for_agent "$OPENCODE_SKILLS_DIR" "OpenCode"
+        ;;
+    custom)
+        first=true
+        for agent in "${selected_agents[@]}"; do
+            if [ "$first" = false ]; then
+                echo -e "${BLUE}------------------------------------------------${NC}"
+                echo ""
+            fi
+            first=false
+
+            case "$agent" in
+                claude)
+                    install_for_agent "$CLAUDE_SKILLS_DIR" "Claude Code"
+                    ;;
+                cursor)
+                    install_for_agent "$CURSOR_SKILLS_DIR" "Cursor"
+                    ;;
+                opencode)
+                    install_for_agent "$OPENCODE_SKILLS_DIR" "OpenCode"
+                    ;;
+                *)
+                    echo -e "${RED}Unknown agent: $agent (skipping)${NC}"
+                    ;;
+            esac
+        done
+        ;;
     all|*)
         install_for_agent "$CLAUDE_SKILLS_DIR" "Claude Code"
         echo -e "${BLUE}------------------------------------------------${NC}"
         echo ""
         install_for_agent "$CURSOR_SKILLS_DIR" "Cursor"
+        echo -e "${BLUE}------------------------------------------------${NC}"
+        echo ""
+        install_for_agent "$OPENCODE_SKILLS_DIR" "OpenCode"
         ;;
 esac
 
@@ -126,13 +200,17 @@ if [ "$AGENT" == "claude" ]; then
     echo "  ls -la $CLAUDE_SKILLS_DIR"
 elif [ "$AGENT" == "cursor" ]; then
     echo "  ls -la $CURSOR_SKILLS_DIR"
+elif [ "$AGENT" == "opencode" ]; then
+    echo "  ls -la $OPENCODE_SKILLS_DIR"
 else
     echo "  ls -la $CLAUDE_SKILLS_DIR"
     echo "  ls -la $CURSOR_SKILLS_DIR"
+    echo "  ls -la $OPENCODE_SKILLS_DIR"
 fi
 echo ""
 echo "Usage:"
-echo "  ./scripts/install-skills.sh         # Install for all agents"
-echo "  ./scripts/install-skills.sh claude  # Install for Claude Code only"
-echo "  ./scripts/install-skills.sh cursor  # Install for Cursor only"
+echo "  ./scripts/install-skills.sh          # Install for all agents"
+echo "  ./scripts/install-skills.sh claude   # Install for Claude Code only"
+echo "  ./scripts/install-skills.sh cursor   # Install for Cursor only"
+echo "  ./scripts/install-skills.sh opencode # Install for OpenCode only"
 echo ""

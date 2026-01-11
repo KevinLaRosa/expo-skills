@@ -1,0 +1,25 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permissions": {
+    "skill": {
+      "expo-*": "allow",
+      "react-native-*": "allow",
+      "nativewind-styling": "allow",
+      "uniwind-styling": "allow",
+      "reanimated-performance": "allow",
+      "skia-animations": "allow",
+      "gluestack-ui": "allow",
+      "zustand-state": "allow",
+      "mmkv-storage": "allow",
+      "tanstack-query": "allow",
+      "zeego-menus": "allow",
+      "shopify-automation": "allow",
+      "better-auth-expo": "allow",
+      "revenuecat-expo": "allow",
+      "apple-*": "allow",
+      "kotlin-modules": "allow",
+      "swift-*": "allow",
+      "material-design": "allow"
+    }
+  }
+}

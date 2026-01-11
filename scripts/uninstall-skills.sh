@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Uninstall Expo Skills from AI Agents (Claude Code, Cursor, Codex, etc.)
-# Removes symlinks from ~/.claude/skills/ and ~/.cursor/skills/ for all skills in this repository
+# Uninstall Expo Skills from AI Agents (Claude Code, Cursor, OpenCode, Codex, etc.)
+# Removes symlinks from ~/.claude/skills/, ~/.cursor/skills/, and ~/.config/opencode/skill/
+# for all skills in this repository
 
 set -e
 
@@ -19,6 +20,7 @@ REPO_DIR="$(dirname "$SCRIPT_DIR")"
 # Target directories for AI agents
 CLAUDE_SKILLS_DIR="$HOME/.claude/skills"
 CURSOR_SKILLS_DIR="$HOME/.cursor/skills"
+OPENCODE_SKILLS_DIR="$HOME/.config/opencode/skill"
 
 # Parse command line arguments
 AGENT="all"
@@ -30,6 +32,47 @@ echo -e "${BLUE}================================================${NC}"
 echo -e "${BLUE}Expo Skills Uninstaller for AI Agents${NC}"
 echo -e "${BLUE}================================================${NC}"
 echo ""
+
+# If no argument provided, show interactive menu
+if [ $# -eq 0 ]; then
+    echo -e "${YELLOW}Select uninstallation target:${NC}"
+    echo ""
+    echo "  1) All agents (Claude Code, Cursor, OpenCode)"
+    echo "  2) Claude Code only"
+    echo "  3) Cursor only"
+    echo "  4) OpenCode only"
+    echo "  5) Custom selection"
+    echo ""
+    read -p "Enter your choice (1-5): " choice
+    echo ""
+
+    case "$choice" in
+        1)
+            AGENT="all"
+            ;;
+        2)
+            AGENT="claude"
+            ;;
+        3)
+            AGENT="cursor"
+            ;;
+        4)
+            AGENT="opencode"
+            ;;
+        5)
+            echo -e "${YELLOW}Select agents to uninstall from (space-separated):${NC}"
+            echo "  Options: claude cursor opencode"
+            echo ""
+            read -p "Enter agents: " -a selected_agents
+            AGENT="custom"
+            ;;
+        *)
+            echo -e "${RED}Invalid choice. Exiting.${NC}"
+            exit 1
+            ;;
+    esac
+fi
+
 
 # Function to uninstall skills for a specific agent
 uninstall_for_agent() {
@@ -95,11 +138,42 @@ case "$AGENT" in
     cursor)
         uninstall_for_agent "$CURSOR_SKILLS_DIR" "Cursor"
         ;;
+    opencode)
+        uninstall_for_agent "$OPENCODE_SKILLS_DIR" "OpenCode"
+        ;;
+    custom)
+        first=true
+        for agent in "${selected_agents[@]}"; do
+            if [ "$first" = false ]; then
+                echo -e "${BLUE}------------------------------------------------${NC}"
+                echo ""
+            fi
+            first=false
+
+            case "$agent" in
+                claude)
+                    uninstall_for_agent "$CLAUDE_SKILLS_DIR" "Claude Code"
+                    ;;
+                cursor)
+                    uninstall_for_agent "$CURSOR_SKILLS_DIR" "Cursor"
+                    ;;
+                opencode)
+                    uninstall_for_agent "$OPENCODE_SKILLS_DIR" "OpenCode"
+                    ;;
+                *)
+                    echo -e "${RED}Unknown agent: $agent (skipping)${NC}"
+                    ;;
+            esac
+        done
+        ;;
     all|*)
         uninstall_for_agent "$CLAUDE_SKILLS_DIR" "Claude Code"
         echo -e "${BLUE}------------------------------------------------${NC}"
         echo ""
         uninstall_for_agent "$CURSOR_SKILLS_DIR" "Cursor"
+        echo -e "${BLUE}------------------------------------------------${NC}"
+        echo ""
+        uninstall_for_agent "$OPENCODE_SKILLS_DIR" "OpenCode"
         ;;
 esac
 
@@ -110,7 +184,8 @@ echo ""
 echo -e "${GREEN}✓ Expo Skills have been uninstalled${NC}"
 echo ""
 echo "Usage:"
-echo "  ./scripts/uninstall-skills.sh         # Uninstall from all agents"
-echo "  ./scripts/uninstall-skills.sh claude  # Uninstall from Claude Code only"
-echo "  ./scripts/uninstall-skills.sh cursor  # Uninstall from Cursor only"
+echo "  ./scripts/uninstall-skills.sh          # Uninstall from all agents"
+echo "  ./scripts/uninstall-skills.sh claude   # Uninstall from Claude Code only"
+echo "  ./scripts/uninstall-skills.sh cursor   # Uninstall from Cursor only"
+echo "  ./scripts/uninstall-skills.sh opencode # Uninstall from OpenCode only"
 echo ""

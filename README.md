@@ -20,6 +20,7 @@ This repository provides production-ready skills that help AI agents assist with
 
 **Universal Compatibility**: These skills follow the [agentskills.io](https://agentskills.io/specification) open standard and work with:
 - ✅ Claude Code (Anthropic)
+- ✅ OpenCode (https://opencode.ai)
 - ✅ OpenAI Codex
 - ✅ Cursor
 - ✅ GitHub Copilot
@@ -43,7 +44,7 @@ These skills are optimized for modern Expo projects using:
 
 ## Installation
 
-### For AI Agents (Claude Code, Cursor, Codex, etc.)
+### For AI Agents (Claude Code, Cursor, OpenCode, etc.)
 
 **Automated Installation (Recommended)**
 
@@ -52,32 +53,46 @@ These skills are optimized for modern Expo projects using:
 git clone https://github.com/KevinLaRosa/expo-skills.git
 cd expo-skills
 
-# Run the installation script
-./scripts/install-skills.sh         # Install for all AI agents (Claude Code + Cursor)
+# Run the installation script (interactive mode)
+./scripts/install-skills.sh
 
-# Or install for specific agent:
-./scripts/install-skills.sh claude  # Claude Code only
-./scripts/install-skills.sh cursor  # Cursor only
+# Or install directly with arguments:
+./scripts/install-skills.sh         # Install for all AI agents (Claude Code, Cursor, OpenCode)
+./scripts/install-skills.sh claude   # Claude Code only
+./scripts/install-skills.sh cursor   # Cursor only
+./scripts/install-skills.sh opencode # OpenCode only
 
 # Verify installation
-ls -la ~/.claude/skills/
-ls -la ~/.cursor/skills/
+ls -la ~/.claude/skills/          # Claude Code & OpenCode (via ~/.claude/skills/)
+ls -la ~/.cursor/skills/          # Cursor
+ls -la ~/.config/opencode/skill/  # OpenCode (alternative path)
 ```
 
 The install script will:
-- Create `~/.claude/skills/` and `~/.cursor/skills/` directories if they don't exist
+- Show an interactive menu if run without arguments (select which agents to install)
+- Create `~/.claude/skills/`, `~/.cursor/skills/`, and `~/.config/opencode/skill/` directories if needed
 - Create symlinks for all 36+ skills
 - Skip skills that are already installed
 - Update symlinks if they point to wrong locations
-- Support Claude Code, Cursor, and other agentskills.io-compatible AI agents
+- Support Claude Code, Cursor, OpenCode, and other agentskills.io-compatible AI agents
+
+**OpenCode Users**: This repository includes `.opencode/opencode.json` for automatic permission configuration. Skills are automatically discovered from:
+- `~/.claude/skills/` (global, shared with Claude Code)
+- `~/.config/opencode/skill/` (OpenCode-specific global path)
 
 **Uninstallation**
 
 ```bash
 cd expo-skills
-./scripts/uninstall-skills.sh         # Uninstall from all agents
-./scripts/uninstall-skills.sh claude  # Uninstall from Claude Code only
-./scripts/uninstall-skills.sh cursor  # Uninstall from Cursor only
+
+# Interactive mode
+./scripts/uninstall-skills.sh
+
+# Or with arguments:
+./scripts/uninstall-skills.sh          # Uninstall from all agents
+./scripts/uninstall-skills.sh claude   # Uninstall from Claude Code only
+./scripts/uninstall-skills.sh cursor   # Uninstall from Cursor only
+./scripts/uninstall-skills.sh opencode # Uninstall from OpenCode only
 ```
 
 **Manual Installation (Alternative)**
